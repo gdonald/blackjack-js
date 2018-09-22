@@ -29,7 +29,7 @@ class PlayerHand extends Hand {
     }
 
     this.game.drawHands();
-    this.game.playerHands.at(this.game.currentPlayerHand).getAction();
+    this.game.playerHands[this.game.currentPlayerHand].getAction();
   }
 
   dbl(): void {

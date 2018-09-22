@@ -2,10 +2,12 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Card from './Card';
 import Hand from './Hand';
+import Game from "./Game";
 
 const Blackjack: React.SFC<{}> = (props) => {
 
-  const h = new Hand();
+  let game = new Game();
+  const h = new Hand(game);
 
   return (
     <>
