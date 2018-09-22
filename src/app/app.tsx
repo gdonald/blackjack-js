@@ -1,19 +1,27 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Card } from './Card';
+import Card from './Card';
 
-const Blackjack: React.SFC<{ card: string }> = (props) => {
-  const c1 = new Card(0, 1);
-  const c2 = new Card(10, 0);
+const Blackjack: React.SFC<{}> = (props) => {
+
+  const c = new Card({ value: 0, suitValue: 0 });
+  console.log(c.isTen())
+  console.log(c.isAce())
 
   return (
-    <div>
-      <div>{`${c1}${c2}`}</div>
-    </div>
+    <>
+      {c.render()}
+      <br/>
+      <Card value={0} suitValue={0}></Card>
+      <Card value={10} suitValue={1}></Card>
+      <br/>
+      <Card value={0} suitValue={3}></Card>
+      <Card value={10} suitValue={2}></Card>
+    </>
   );
-}
+};
 
 ReactDOM.render(
-  <Blackjack card="Card" />,
-  document.getElementById("root")
+  <Blackjack/>,
+  document.getElementById('root')
 );

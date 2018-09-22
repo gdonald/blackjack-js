@@ -1,8 +1,16 @@
 body {
   color: #000;
-  background: #bbb;
+  background: #808080;
 }
 
 #root {
-  font-size: 3.0em;
+  font-size: 10.0em;
+}
+
+.red {
+  color: #c00;
+}
+
+.black {
+  color: #333;
 }

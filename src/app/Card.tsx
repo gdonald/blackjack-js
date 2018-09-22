@@ -1,4 +1,11 @@
-export class Card {
+import React from 'react';
+
+interface PropsType {
+  value: number
+  suitValue: number
+}
+
+class Card extends React.Component<PropsType, {}> {
 
   static faces: string[][] = [
     ["🂡", "🂱", "🃁", "🃑"],
@@ -17,23 +24,25 @@ export class Card {
     ["🂠", "", "", ""]
   ];
 
-  constructor(value: number, suitValue: number) {
-    this.value = value;
-    this.suitValue = suitValue;
-  }
-
-  private readonly value: number;
-  private readonly suitValue: number;
-
   isTen(): boolean {
-    return this.value > 8;
+    return this.props.value > 8;
   }
 
   isAce(): boolean {
-    return this.value == 0;
+    return this.props.value == 0;
   }
 
-  toString(): string {
-    return Card.faces[this.value][this.suitValue];
+  colorClass() {
+    return [1, 2].indexOf(this.props.suitValue) > -1 ? 'red' : 'black'
+  }
+
+  render() {
+    return (
+      <span className={this.colorClass()}>
+        {Card.faces[this.props.value][this.props.suitValue]}
+      </span>
+    );
   }
 }
+
+export default Card;
