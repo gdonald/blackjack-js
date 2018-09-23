@@ -20,29 +20,65 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.shoe = new Shoe(this.numDecks);
-    this.dealerHand = new DealerHand(this);
+    //this.dealerHand = new DealerHand(this);
+    this.dealNewHand()
   }
 
   render() {
     return (
-      'Game!'
+      <>
+        <div className="word" key="d">Dealer:</div>
+        {this.dealerHand.render()}
+        <div className="word" key="p">Player ${this.money / 100.0}:</div>
+        {this.playerHands.map(function(playerHand, key) {
+          return playerHand.render();
+        })}
+      </>
     );
-
-    // cout << endl << " Dealer: " << endl;
-    // dealerHand.draw();
-    // cout << endl;
-    //
-    // cout << fixed << setprecision(2);
-    // cout << endl << " Player $" << (float)(money / 100.0) << ":" << endl;
-    // for(unsigned i = 0; i < playerHands.size(); ++i)
-    // {
-    //   playerHands.at(i).draw(i);
-    // }
-
   }
 
-  run(): void {
+  dealNewHand(): void {
+    if (this.shoe.needToShuffle())
+    {
+      this.shoe.newRegular();
+    }
 
+    this.playerHands = [];
+    PlayerHand.totalPlayerHands = 0;
+
+    this.playerHands.push(new PlayerHand(this, this.currentBet));
+    let playerHand = this.playerHands[0];
+
+    this.currentPlayerHand = 0;
+
+    this.dealerHand = new DealerHand(this);
+
+    this.dealerHand.hand.dealCard();
+    playerHand.hand.dealCard();
+    this.dealerHand.hand.dealCard();
+    playerHand.hand.dealCard();
+
+    // debugger
+
+    if (this.dealerHand.upCardIsAce() && !playerHand.hand.isBlackjack())
+    {
+      // this.drawHands();
+      this.askInsurance();
+      return;
+    }
+
+    if (playerHand.isDone())
+    {
+      this.dealerHand.hideDownCard = false;
+      this.payHands();
+      // this.drawHands();
+      this.betOptions();
+      return;
+    }
+
+    // this.drawHands();
+    playerHand.getAction();
+    //saveGame();
   }
 
   allBets(): number {
@@ -147,48 +183,6 @@ class Game extends React.Component {
 
     this.dealerHand.hand.played = true;
     this.payHands();
-  }
-
-  dealNewHand(): void {
-    if (this.shoe.needToShuffle())
-    {
-      this.shoe.newRegular();
-    }
-
-    this.playerHands = [];
-    PlayerHand.totalPlayerHands = 0;
-
-    this.playerHands.push(new PlayerHand(this, this.currentBet));
-    let playerHand = this.playerHands[0];
-
-    this.currentPlayerHand = 0;
-
-    this.dealerHand = new DealerHand(this);
-
-    this.dealerHand.hand.dealCard();
-    playerHand.hand.dealCard();
-    this.dealerHand.hand.dealCard();
-    playerHand.hand.dealCard();
-
-    if (this.dealerHand.upCardIsAce() && !playerHand.hand.isBlackjack())
-    {
-      // this.drawHands();
-      this.askInsurance();
-      return;
-    }
-
-    if (playerHand.isDone())
-    {
-      this.dealerHand.hideDownCard = false;
-      this.payHands();
-      // this.drawHands();
-      this.betOptions();
-      return;
-    }
-
-    // this.drawHands();
-    playerHand.getAction();
-    //saveGame();
   }
 
   askInsurance(): void {

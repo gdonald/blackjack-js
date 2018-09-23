@@ -1,13 +1,8 @@
-import Hand, {CountMethod} from './Hand';
-import Game from "./Game";
 import React from "react";
-import Card from "./Card";
+import Game from "./Game";
+import Hand, {CountMethod} from './Hand';
 
-interface PropsType {
-
-}
-
-class DealerHand extends React.Component<PropsType, {}> {
+class DealerHand extends React.Component {
   hideDownCard: boolean = true;
   hand: Hand = null;
 
@@ -16,12 +11,18 @@ class DealerHand extends React.Component<PropsType, {}> {
     this.hand = new Hand(game);
   }
 
-  upCardIsAce(): boolean {
-    return this.hand.cards[0].isAce();
+  render() {
+    return (
+      <>
+        {this.hand.cards.map(function(card) {
+          return card.render();
+        })}
+      </>
+    );
   }
 
-  draw(): void {
-
+  upCardIsAce(): boolean {
+    return this.hand.cards[0].isAce();
   }
 
   isBusted(): boolean {

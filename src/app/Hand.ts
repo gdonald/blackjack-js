@@ -13,8 +13,6 @@ class Hand {
 
   constructor(game: Game) {
     this.game = game;
-    const c = new Card({value: 0, suitValue: 0});
-    this.cards.push(c);
   }
 
   isBusted() : boolean {
@@ -37,12 +35,8 @@ class Hand {
     return false;
   }
 
-  isDone() : boolean {
-    return false;
-  }
-
   dealCard() : void {
-
+    this.cards.push(this.game.shoe.getNextCard());
   }
 }
 

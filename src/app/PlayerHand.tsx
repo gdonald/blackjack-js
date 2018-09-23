@@ -1,28 +1,42 @@
+import React from "react";
 import Hand, {CountMethod, Status} from './Hand';
 import Game from './Game';
-import React from "react";
 
 export const MAX_PLAYER_HANDS: number = 7;
 
-interface PropsType {
-
-}
+interface PropsType {}
 
 class PlayerHand extends React.Component<PropsType, {}> {
 
   static totalPlayerHands: number = 0;
+
   game: Game = null;
   hand: Hand = null;
   bet: number;
   status: Status = Status.Unknown;
   payed: boolean = false;
+  playerHandID: number = 0;
 
   constructor(game: Game, bet: number) {
     super(game);
     this.game = game;
     this.bet = bet;
     this.hand = new Hand(game);
-    PlayerHand.totalPlayerHands++;
+    this.playerHandID = PlayerHand.totalPlayerHands++;
+  }
+
+  render() {
+    return (
+      <div key="phs">
+        {this.hand.cards.map(function(card, key) {
+          return (
+            <span key={`ph-${card.cardID}-${key}`}>
+              {card.render()}
+            </span>
+          );
+        })}
+      </div>
+    );
   }
 
   getAction(): void {
