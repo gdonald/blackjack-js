@@ -1,18 +1,27 @@
 import Hand, {CountMethod, Status} from './Hand';
 import Game from './Game';
+import React from "react";
 
 export const MAX_PLAYER_HANDS: number = 7;
 
-class PlayerHand extends Hand {
+interface PropsType {
+
+}
+
+class PlayerHand extends React.Component<PropsType, {}> {
 
   static totalPlayerHands: number = 0;
+  game: Game = null;
+  hand: Hand = null;
   bet: number;
   status: Status = Status.Unknown;
   payed: boolean = false;
 
   constructor(game: Game, bet: number) {
     super(game);
+    this.game = game;
     this.bet = bet;
+    this.hand = new Hand(game);
     PlayerHand.totalPlayerHands++;
   }
 
@@ -21,20 +30,20 @@ class PlayerHand extends Hand {
   }
 
   hit(): void {
-    this.dealCard();
+    this.hand.dealCard();
 
     if (this.isDone()) {
       this.process();
       return;
     }
 
-    this.game.drawHands();
+    // this.game.drawHands();
     this.game.playerHands[this.game.currentPlayerHand].getAction();
   }
 
   dbl(): void {
-    this.dealCard();
-    this.played = true;
+    this.hand.dealCard();
+    this.hand.played = true;
     this.bet *= 2;
 
     if (this.isDone()) {
@@ -43,8 +52,8 @@ class PlayerHand extends Hand {
   }
 
   stand(): void {
-    this.stood = true;
-    this.played = true;
+    this.hand.stood = true;
+    this.hand.played = true;
 
     if (this.game.moreHandsToPlay()) {
       this.game.playMoreHands();
@@ -52,7 +61,7 @@ class PlayerHand extends Hand {
     }
 
     this.game.playDealerHand();
-    this.game.drawHands();
+    // this.game.drawHands();
     this.game.betOptions();
   }
 
@@ -67,12 +76,12 @@ class PlayerHand extends Hand {
     }
 
     this.game.playDealerHand();
-    this.game.drawHands();
+    // this.game.drawHands();
     this.game.betOptions();
   }
 
   canSplit(): boolean {
-    if (this.stood || PlayerHand.totalPlayerHands >= MAX_PLAYER_HANDS) {
+    if (this.hand.stood || PlayerHand.totalPlayerHands >= MAX_PLAYER_HANDS) {
       return false;
     }
 
@@ -80,7 +89,7 @@ class PlayerHand extends Hand {
       return false;
     }
 
-    if (this.cards.length == 2 && this.cards[0].props.value == this.cards[1].props.value) {
+    if (this.hand.cards.length == 2 && this.hand.cards[0].props.value == this.hand.cards[1].props.value) {
       return true;
     }
 
@@ -92,7 +101,7 @@ class PlayerHand extends Hand {
       return false;
     }
 
-    if (this.stood || this.cards.length != 2 || this.isBusted() || this.isBlackjack()) {
+    if (this.hand.stood || this.hand.cards.length != 2 || this.isBusted() || this.hand.isBlackjack()) {
       return false;
     }
 
@@ -100,7 +109,7 @@ class PlayerHand extends Hand {
   }
 
   canStand(): boolean {
-    if (this.stood || this.isBusted() || this.isBlackjack()) {
+    if (this.hand.stood || this.isBusted() || this.hand.isBlackjack()) {
       return false;
     }
 
@@ -108,7 +117,7 @@ class PlayerHand extends Hand {
   }
 
   canHit(): boolean {
-    if (this.played || this.stood || 21 == this.getValue(CountMethod.Hard) || this.isBlackjack() || this.isBusted()) {
+    if (this.hand.played || this.hand.stood || 21 == this.getValue(CountMethod.Hard) || this.hand.isBlackjack() || this.isBusted()) {
       return false;
     }
 
@@ -116,13 +125,13 @@ class PlayerHand extends Hand {
   }
 
   isDone(): boolean {
-    if (this.played
-      || this.stood
-      || this.isBlackjack()
+    if (this.hand.played
+      || this.hand.stood
+      || this.hand.isBlackjack()
       || this.isBusted()
       || 21 == this.getValue(CountMethod.Soft)
       || 21 == this.getValue(CountMethod.Hard)) {
-      this.played = true;
+      this.hand.played = true;
 
       if (!this.payed) {
         if (this.isBusted()) {
@@ -146,8 +155,8 @@ class PlayerHand extends Hand {
     let v = 0;
     let total = 0;
 
-    for (let x = 0; x < this.cards.length; x++) {
-      let tmp_v = this.cards[x].props.value + 1;
+    for (let x = 0; x < this.hand.cards.length; x++) {
+      let tmp_v = this.hand.cards[x].props.value + 1;
       v = tmp_v > 9 ? 10 : tmp_v;
 
       if (countMethod == CountMethod.Soft && v == 1 && total < 11) {

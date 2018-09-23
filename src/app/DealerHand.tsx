@@ -1,15 +1,23 @@
 import Hand, {CountMethod} from './Hand';
 import Game from "./Game";
+import React from "react";
+import Card from "./Card";
 
-class DealerHand extends Hand {
+interface PropsType {
+
+}
+
+class DealerHand extends React.Component<PropsType, {}> {
   hideDownCard: boolean = true;
+  hand: Hand = null;
 
   constructor(game: Game) {
     super(game);
+    this.hand = new Hand(game);
   }
 
   upCardIsAce(): boolean {
-    return this.cards[0].isAce();
+    return this.hand.cards[0].isAce();
   }
 
   draw(): void {
@@ -24,12 +32,12 @@ class DealerHand extends Hand {
     let v = 0;
     let total = 0;
 
-    for (let x = 0; x < this.cards.length; x++) {
+    for (let x = 0; x < this.hand.cards.length; x++) {
       if (x == 1 && this.hideDownCard) {
         continue;
       }
 
-      let tmp_v = this.cards[x].props.value + 1;
+      let tmp_v = this.hand.cards[x].props.value + 1;
       v = tmp_v > 9 ? 10 : tmp_v;
 
       if (countMethod == CountMethod.Soft && v == 1 && total < 11) {
