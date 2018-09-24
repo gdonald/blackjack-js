@@ -1,4 +1,4 @@
-import Shoe from "./Shoe";
+import Shoe, { ShoeType } from "./Shoe";
 import DealerHand from "./DealerHand";
 import PlayerHand from "./PlayerHand";
 import {CountMethod, Status} from "./Hand";
@@ -12,6 +12,7 @@ export const MAX_NUM_DECKS: number = 8;
 
 class Game extends React.Component {
   numDecks: number = 1;
+  shoeType: number = ShoeType.Regular;
   shoe: Shoe = null;
   dealerHand: DealerHand = null;
   playerHands: PlayerHand[] = [];
@@ -70,7 +71,7 @@ class Game extends React.Component {
 
   dealNewHand(): void {
     if (this.shoe.needToShuffle()) {
-      this.shoe.newRegular();
+      this.shoe.newShoe(this.shoeType);
     }
 
     this.playerHands = [];
@@ -200,8 +201,7 @@ class Game extends React.Component {
     this.currentPlayerHandIndex++;
     let h = this.playerHands[this.currentPlayerHandIndex];
     h.hand.dealCard();
-    if (h.isDone())
-    {
+    if (h.isDone()) {
       h.process();
       return;
     }
@@ -377,36 +377,42 @@ class Game extends React.Component {
   }
 
   newRegular(): void {
+    this.shoeType = ShoeType.Regular;
     this.shoe.newRegular();
     this.currentMenu = MenuType.MenuOptions;
     this.forceUpdate();
   }
 
   newAces(): void {
+    this.shoeType = ShoeType.Aces;
     this.shoe.newAces();
     this.currentMenu = MenuType.MenuOptions;
     this.forceUpdate();
   }
 
   newJacks(): void {
+    this.shoeType = ShoeType.Jacks;
     this.shoe.newJacks();
     this.currentMenu = MenuType.MenuOptions;
     this.forceUpdate();
   }
 
   newAcesJacks(): void {
+    this.shoeType = ShoeType.AcesJacks;
     this.shoe.newAcesJacks();
     this.currentMenu = MenuType.MenuOptions;
     this.forceUpdate();
   }
 
   newSevens(): void {
+    this.shoeType = ShoeType.Sevens;
     this.shoe.newSevens();
     this.currentMenu = MenuType.MenuOptions;
     this.forceUpdate();
   }
 
   newEights(): void {
+    this.shoeType = ShoeType.Eights;
     this.shoe.newEights();
     this.currentMenu = MenuType.MenuOptions;
     this.forceUpdate();

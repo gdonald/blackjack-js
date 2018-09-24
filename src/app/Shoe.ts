@@ -1,5 +1,7 @@
 import Card from "./Card";
 
+export enum ShoeType { Regular, Aces, Jacks, AcesJacks, Sevens, Eights };
+
 class Shoe {
 
   static shuffleSpecs: number[][] = [
@@ -58,6 +60,29 @@ class Shoe {
   shuffle(): void {
     for(let i = 0; i < 7; i++) {
       this.cards = this.shuffleArray(this.cards);
+    }
+  }
+
+  newShoe(shoeType: ShoeType): void {
+    switch(shoeType) {
+      case ShoeType.Regular:
+        this.newRegular();
+        break;
+      case ShoeType.Aces:
+        this.newAces();
+        break;
+      case ShoeType.Jacks:
+        this.newJacks();
+        break;
+      case ShoeType.AcesJacks:
+        this.newAcesJacks();
+        break;
+      case ShoeType.Sevens:
+        this.newSevens();
+        break;
+      case ShoeType.Eights:
+        this.newEights();
+        break;
     }
   }
 

@@ -41,7 +41,6 @@ class Menu extends React.Component<PropsType, {}> {
               return <MenuDeckCount game={this.game}/>;
             case MenuType.MenuDeckType:
               return <MenuDeckType game={this.game}/>;
-
           }
         })()}
       </>
