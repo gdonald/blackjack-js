@@ -1,6 +1,6 @@
 body {
   background: #808080 !important;
-  line-height: 1.0 !important;
+  /* line-height: 1.0 !important; */
 }
 
 #root {
@@ -27,7 +27,7 @@ body {
   display: inline-block !important;
   background: transparent !important;
   border: none !important;
-  /*line-height: 0.8;*/
+  line-height: 0.9 !important;
 }
 
 .count {

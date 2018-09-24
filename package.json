@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "webpack -p",
-    "start": "webpack-dev-server -d --content-base ./public"
+    "start": "webpack-dev-server --host 0.0.0.0 -d --content-base ./public"
   },
   "dependencies": {
     "@types/react": "16.4.14",
