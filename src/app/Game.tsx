@@ -2,54 +2,82 @@ import Shoe from "./Shoe";
 import DealerHand from "./DealerHand";
 import PlayerHand from "./PlayerHand";
 import {CountMethod, Status} from "./Hand";
+import Menu, {MenuType} from './menus/Menu';
 import React from "react";
 
 export const MIN_BET: number = 500;
 export const MAX_BET: number = 10000000;
+export const MIN_NUM_DECKS: number = 1;
+export const MAX_NUM_DECKS: number = 8;
 
 class Game extends React.Component {
   numDecks: number = 1;
   shoe: Shoe = null;
   dealerHand: DealerHand = null;
   playerHands: PlayerHand[] = [];
-
-  currentPlayerHand: number = 0;
+  currentPlayerHandIndex: number = 0;
   currentBet: number = MIN_BET;
   money: number = 10000;
+  menu: Menu = null;
+  currentMenu: number = MenuType.MenuHand;
+  mounted: boolean = false;
 
   constructor(props) {
     super(props);
     this.shoe = new Shoe(this.numDecks);
-    //this.dealerHand = new DealerHand(this);
-    this.dealNewHand()
+    this.dealNewHand();
+    this.menu = new Menu({game: this});
+
+    this.dealNewHand = this.dealNewHand.bind(this);
+    this.insureHand = this.insureHand.bind(this);
+    this.noInsurance = this.noInsurance.bind(this);
+    this.getNewBet = this.getNewBet.bind(this);
+    this.updateBet = this.updateBet.bind(this);
+    this.gameOptions = this.gameOptions.bind(this);
+    this.optionsBack = this.optionsBack.bind(this);
+    this.getDeckType = this.getDeckType.bind(this);
+    this.getDeckCount = this.getDeckCount.bind(this);
+    this.updateDeckCount = this.updateDeckCount.bind(this);
+    this.newRegular = this.newRegular.bind(this);
+    this.newAces = this.newAces.bind(this);
+    this.newJacks = this.newJacks.bind(this);
+    this.newAcesJacks = this.newAcesJacks.bind(this);
+    this.newSevens = this.newSevens.bind(this);
+    this.newEights = this.newEights.bind(this);
   }
 
   render() {
     return (
       <>
-        <div className="word" key="d">Dealer:</div>
+        <div className="word black" key="d">Dealer:</div>
         {this.dealerHand.render()}
-        <div className="word" key="p">Player ${this.money / 100.0}:</div>
+        <div className="word black" key="p">Player {this.formattedMoney()}:</div>
         {this.playerHands.map(function(playerHand, key) {
           return playerHand.render();
         })}
+        {this.menu.render()}
       </>
     );
   }
 
+  componentDidMount() {
+    this.mounted = true;
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
   dealNewHand(): void {
-    if (this.shoe.needToShuffle())
-    {
+    if (this.shoe.needToShuffle()) {
       this.shoe.newRegular();
     }
 
     this.playerHands = [];
     PlayerHand.totalPlayerHands = 0;
-
     this.playerHands.push(new PlayerHand(this, this.currentBet));
     let playerHand = this.playerHands[0];
-
-    this.currentPlayerHand = 0;
+    this.currentPlayerHandIndex = 0;
 
     this.dealerHand = new DealerHand(this);
 
@@ -58,27 +86,45 @@ class Game extends React.Component {
     this.dealerHand.hand.dealCard();
     playerHand.hand.dealCard();
 
-    // debugger
-
-    if (this.dealerHand.upCardIsAce() && !playerHand.hand.isBlackjack())
-    {
-      // this.drawHands();
+    if (this.dealerHand.upCardIsAce() && !playerHand.hand.isBlackjack()) {
       this.askInsurance();
+
+      if(this.mounted) {
+        this.forceUpdate();
+      }
+
       return;
     }
 
-    if (playerHand.isDone())
-    {
+    if (playerHand.isDone()) {
       this.dealerHand.hideDownCard = false;
       this.payHands();
-      // this.drawHands();
-      this.betOptions();
+      this.currentMenu = MenuType.MenuGame;
+
+      if(this.mounted) {
+        this.forceUpdate();
+      }
+
       return;
     }
 
-    // this.drawHands();
-    playerHand.getAction();
-    //saveGame();
+    this.currentMenu = MenuType.MenuHand;
+
+    if(this.mounted) {
+      this.forceUpdate();
+    }
+  }
+
+  formattedMoney(): string {
+    return (this.money / 100.0).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+  }
+
+  formattedBet(): string {
+    return (this.currentBet / 100.0).toLocaleString('en-US', { style: 'decimal' });
+  }
+
+  currentPlayerHand(): PlayerHand {
+    return this.playerHands[this.currentPlayerHandIndex];
   }
 
   allBets(): number {
@@ -92,7 +138,7 @@ class Game extends React.Component {
   }
 
   moreHandsToPlay(): boolean {
-    return this.currentPlayerHand < this.playerHands.length - 1;
+    return this.currentPlayerHandIndex < this.playerHands.length - 1;
   }
 
   needToPlayDealerHand(): boolean {
@@ -108,7 +154,11 @@ class Game extends React.Component {
   }
 
   splitCurrentHand(): void {
-    let currentHand = this.playerHands[this.currentPlayerHand];
+    if(!this.currentPlayerHand().canSplit()) {
+      return;
+    }
+
+    let currentHand = this.playerHands[this.currentPlayerHandIndex];
 
     if (!currentHand.canSplit()) {
       // this.drawHands();
@@ -120,14 +170,14 @@ class Game extends React.Component {
 
     // expand hands
     let x = this.playerHands.length - 1;
-    while (x > this.currentPlayerHand) {
+    while (x > this.currentPlayerHandIndex) {
       this.playerHands[x] = this.playerHands[x - 1];
       x--;
     }
 
     // split
-    let thisHand = this.playerHands[this.currentPlayerHand];
-    let splitHand = this.playerHands[this.currentPlayerHand + 1];
+    let thisHand = this.playerHands[this.currentPlayerHandIndex];
+    let splitHand = this.playerHands[this.currentPlayerHandIndex + 1];
 
     splitHand.hand.cards = [];
     const c = thisHand.hand.cards[thisHand.hand.cards.length - 1];
@@ -143,12 +193,12 @@ class Game extends React.Component {
     }
 
     // this.drawHands();
-    this.playerHands[this.currentPlayerHand].getAction();
+    this.playerHands[this.currentPlayerHandIndex].getAction();
   }
 
   playMoreHands(): void {
-    this.currentPlayerHand++;
-    let h = this.playerHands[this.currentPlayerHand];
+    this.currentPlayerHandIndex++;
+    let h = this.playerHands[this.currentPlayerHandIndex];
     h.hand.dealCard();
     if (h.isDone())
     {
@@ -190,7 +240,7 @@ class Game extends React.Component {
   }
 
   insureHand(): void {
-    let h = this.playerHands[this.currentPlayerHand];
+    let h = this.playerHands[this.currentPlayerHandIndex];
 
     h.bet /= 2;
     h.hand.played = true;
@@ -200,7 +250,7 @@ class Game extends React.Component {
     this.money -= h.bet;
 
     // this.drawHands();
-    this.betOptions();
+    // this.betOptions();
   }
 
   noInsurance(): void {
@@ -210,15 +260,15 @@ class Game extends React.Component {
 
       this.payHands();
       // this.drawHands();
-      this.betOptions();
+      // this.betOptions();
       return;
     }
 
-    let h = this.playerHands[this.currentPlayerHand];
+    let h = this.playerHands[this.currentPlayerHandIndex];
     if (h.isDone()) {
       this.playDealerHand();
       // this.drawHands();
-      this.betOptions();
+      // this.betOptions();
       return;
     }
 
@@ -260,28 +310,106 @@ class Game extends React.Component {
     //this.saveGame();
   }
 
-  betOptions(): void {
-
-  }
-
   gameOptions(): void {
-
+    this.currentMenu = MenuType.MenuOptions;
+    this.forceUpdate();
   }
 
-  getNewNumDecks(): void {
-
+  getDeckCount(): void {
+    this.currentMenu = MenuType.MenuDeckCount;
+    this.forceUpdate();
   }
 
-  getNewDeckType(): void {
+  getDeckType(): void {
+    this.currentMenu = MenuType.MenuDeckType;
+    this.forceUpdate();
+  }
 
+  optionsBack(): void {
+    this.currentMenu = MenuType.MenuGame;
+    this.forceUpdate();
   }
 
   getNewBet(): void {
+    this.currentMenu = MenuType.MenuBet;
+    this.forceUpdate();
+  }
 
+  updateBet(event): void {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    this.currentBet = parseInt(data.get('betValue').toString()) * 100;
+    this.normalizeCurrentBet();
+
+    this.dealNewHand();
+    this.currentMenu = MenuType.MenuHand;
+    this.forceUpdate();
   }
 
   normalizeCurrentBet(): void {
+    if(this.currentBet < MIN_BET) {
+      this.currentBet = MIN_BET;
+    } else if(this.currentBet > MAX_BET) {
+      this.currentBet = MAX_BET;
+    }
 
+    if(this.currentBet > this.money) {
+      this.currentBet = this.money;
+    }
+  }
+
+  updateDeckCount(event): void {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    this.numDecks = parseInt(data.get('deckCountValue').toString());
+    this.normalizeDeckCount();
+
+    this.currentMenu = MenuType.MenuOptions;
+    this.forceUpdate();
+  }
+
+  normalizeDeckCount(): void {
+    if(this.numDecks < MIN_NUM_DECKS) {
+      this.numDecks = MIN_NUM_DECKS;
+    } else if(this.numDecks > MAX_NUM_DECKS) {
+      this.numDecks = MAX_NUM_DECKS;
+    }
+  }
+
+  newRegular(): void {
+    this.shoe.newRegular();
+    this.currentMenu = MenuType.MenuOptions;
+    this.forceUpdate();
+  }
+
+  newAces(): void {
+    this.shoe.newAces();
+    this.currentMenu = MenuType.MenuOptions;
+    this.forceUpdate();
+  }
+
+  newJacks(): void {
+    this.shoe.newJacks();
+    this.currentMenu = MenuType.MenuOptions;
+    this.forceUpdate();
+  }
+
+  newAcesJacks(): void {
+    this.shoe.newAcesJacks();
+    this.currentMenu = MenuType.MenuOptions;
+    this.forceUpdate();
+  }
+
+  newSevens(): void {
+    this.shoe.newSevens();
+    this.currentMenu = MenuType.MenuOptions;
+    this.forceUpdate();
+  }
+
+  newEights(): void {
+    this.shoe.newEights();
+    this.currentMenu = MenuType.MenuOptions;
+    this.forceUpdate();
   }
 
   saveGame(): void {
@@ -291,11 +419,6 @@ class Game extends React.Component {
   loadGame(): void {
 
   }
-
-  clear(): void {
-
-  }
-
 }
 
 export default Game;

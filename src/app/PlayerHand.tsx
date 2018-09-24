@@ -1,6 +1,7 @@
 import React from "react";
 import Hand, {CountMethod, Status} from './Hand';
 import Game from './Game';
+import {MenuType} from "./menus/Menu";
 
 export const MAX_PLAYER_HANDS: number = 7;
 
@@ -23,6 +24,10 @@ class PlayerHand extends React.Component<PropsType, {}> {
     this.bet = bet;
     this.hand = new Hand(game);
     this.playerHandID = PlayerHand.totalPlayerHands++;
+
+    this.dbl = this.dbl.bind(this);
+    this.stand = this.stand.bind(this);
+    this.hit = this.hit.bind(this);
   }
 
   render() {
@@ -35,6 +40,7 @@ class PlayerHand extends React.Component<PropsType, {}> {
             </span>
           );
         })}
+        <div className="count black">⇒  {this.getValue(CountMethod.Soft)}</div>
       </div>
     );
   }
@@ -44,28 +50,43 @@ class PlayerHand extends React.Component<PropsType, {}> {
   }
 
   hit(): void {
+    if(!this.canHit()) {
+      return;
+    }
+
     this.hand.dealCard();
 
     if (this.isDone()) {
       this.process();
+      this.game.forceUpdate();
       return;
     }
 
-    // this.game.drawHands();
-    this.game.playerHands[this.game.currentPlayerHand].getAction();
+    this.game.forceUpdate();
   }
 
   dbl(): void {
+    if(!this.canDbl()) {
+      return;
+    }
+
     this.hand.dealCard();
+    this.hand.stood = true;
     this.hand.played = true;
     this.bet *= 2;
 
     if (this.isDone()) {
       this.process();
     }
+
+    this.game.forceUpdate();
   }
 
   stand(): void {
+    if(!this.canStand()) {
+      return;
+    }
+
     this.hand.stood = true;
     this.hand.played = true;
 
@@ -75,12 +96,8 @@ class PlayerHand extends React.Component<PropsType, {}> {
     }
 
     this.game.playDealerHand();
-    // this.game.drawHands();
-    this.game.betOptions();
-  }
-
-  draw(index: number): void {
-
+    this.game.currentMenu = MenuType.MenuGame;
+    this.game.forceUpdate();
   }
 
   process(): void {
@@ -91,7 +108,9 @@ class PlayerHand extends React.Component<PropsType, {}> {
 
     this.game.playDealerHand();
     // this.game.drawHands();
-    this.game.betOptions();
+    // this.game.betOptions();
+    this.game.currentMenu = MenuType.MenuGame;
+    this.game.forceUpdate();
   }
 
   canSplit(): boolean {
@@ -115,7 +134,10 @@ class PlayerHand extends React.Component<PropsType, {}> {
       return false;
     }
 
-    if (this.hand.stood || this.hand.cards.length != 2 || this.isBusted() || this.hand.isBlackjack()) {
+    if (this.hand.stood
+      || this.hand.cards.length != 2
+      || this.isBusted()
+      || this.hand.isBlackjack()) {
       return false;
     }
 

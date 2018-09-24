@@ -18,6 +18,8 @@ class Shoe {
 
   constructor(numDecks: number) {
     this.numDecks = numDecks;
+
+    this.newRegular = this.newRegular.bind(this);
   }
 
   needToShuffle(): boolean {
@@ -74,23 +76,64 @@ class Shoe {
   }
 
   newEights(): void {
+    this.cards = [];
 
+    for(let deck = 0; deck < this.numDecks * 5; deck++) {
+      for(let suitValue = 0; suitValue < 4; suitValue++) {
+        this.cards.push(new Card({value: 7, suitValue}));
+      }
+    }
+
+    this.shuffle();
   }
 
   newSevens(): void {
+    this.cards = [];
 
+    for(let deck = 0; deck < this.numDecks * 5; deck++) {
+      for(let suitValue = 0; suitValue < 4; suitValue++) {
+        this.cards.push(new Card({value: 6, suitValue}));
+      }
+    }
+
+    this.shuffle();
   }
 
   newAces(): void {
+    this.cards = [];
 
+    for(let deck = 0; deck < this.numDecks * 5; deck++) {
+      for(let suitValue = 0; suitValue < 4; suitValue++) {
+        this.cards.push(new Card({value: 0, suitValue}));
+      }
+    }
+
+    this.shuffle();
   }
 
   newJacks(): void {
+    this.cards = [];
 
+    for(let deck = 0; deck < this.numDecks * 5; deck++) {
+      for(let suitValue = 0; suitValue < 4; suitValue++) {
+        this.cards.push(new Card({value: 10, suitValue}));
+      }
+    }
+
+    this.shuffle();
   }
 
   newAcesJacks(): void {
+    this.cards = [];
 
+    for(let deck = 0; deck < this.numDecks * 5; deck++) {
+      for(let suitValue = 0; suitValue < 4; suitValue++) {
+        this.cards.push(new Card({value: 0, suitValue}));
+        this.cards.push(new Card({value: 10, suitValue}));
+      }
+    }
+
+    this.shuffle();
   }
 
   getNextCard(): Card {

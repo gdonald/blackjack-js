@@ -1,8 +1,9 @@
 body {
-  background: #808080;
+  background: #808080 !important;
 }
 
 #root {
+  margin: 10px 0 0 20px;
 }
 
 .red {
@@ -17,9 +18,37 @@ body {
   font-size: 1.2em;
   font-family: Arial, sans-serif;
   font-weight: bold;
-  padding-top: 8px;
+  padding: 6px 0 0 4px;
 }
 
 .card {
   font-size: 6.0em;
+  display: inline-block !important;
+  background: transparent !important;
+  border: none !important;
+  line-height: 0.8;
+}
+
+.count {
+  display: inline-block;
+  font-size: 1.2em;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  vertical-align: middle;
+  height: 64px;
+  padding: 0 0 10px 12px;
+}
+
+.menu-buttons {
+  margin: 8px 0 0 4px;
+}
+
+.menu-buttons div {
+  margin: 0 6px 0 0;
+  width: 96px;
+}
+
+.get-bet, .get-deck-count {
+  margin: 8px 0 0 4px !important;
+  width: 200px !important;
 }
