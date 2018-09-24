@@ -45,6 +45,7 @@ class Game extends React.Component {
     this.newAcesJacks = this.newAcesJacks.bind(this);
     this.newSevens = this.newSevens.bind(this);
     this.newEights = this.newEights.bind(this);
+    this.splitCurrentHand = this.splitCurrentHand.bind(this);
   }
 
   render() {
@@ -159,13 +160,13 @@ class Game extends React.Component {
       return;
     }
 
-    let currentHand = this.playerHands[this.currentPlayerHandIndex];
+    // let currentHand = this.playerHands[this.currentPlayerHandIndex];
 
-    if (!currentHand.canSplit()) {
-      // this.drawHands();
-      currentHand.getAction();
-      return;
-    }
+    // if (!currentHand.canSplit()) {
+    //   // this.drawHands();
+    //   currentHand.getAction();
+    //   return;
+    // }
 
     this.playerHands.push(new PlayerHand(this, this.currentBet));
 
@@ -194,7 +195,9 @@ class Game extends React.Component {
     }
 
     // this.drawHands();
-    this.playerHands[this.currentPlayerHandIndex].getAction();
+    // this.playerHands[this.currentPlayerHandIndex].getAction();
+    this.currentMenu = MenuType.MenuHand;
+    this.forceUpdate();
   }
 
   playMoreHands(): void {
