@@ -3,7 +3,7 @@ import DealerHand from "./DealerHand";
 import PlayerHand from "./PlayerHand";
 import {CountMethod, Status} from "./Hand";
 import Menu, {MenuType} from './menus/Menu';
-import React from "react";
+import React from 'react';
 
 export const MIN_BET: number = 500;
 export const MAX_BET: number = 10000000;
@@ -11,8 +11,8 @@ export const MIN_NUM_DECKS: number = 1;
 export const MAX_NUM_DECKS: number = 8;
 
 class Game extends React.Component {
-  numDecks: number = 1;
-  shoeType: number = ShoeType.Regular;
+  numDecks: number = 8;
+  shoeType: number = ShoeType.Sevens;
   shoe: Shoe = null;
   dealerHand: DealerHand = null;
   playerHands: PlayerHand[] = [];
@@ -160,28 +160,21 @@ class Game extends React.Component {
       return;
     }
 
-    // let currentHand = this.playerHands[this.currentPlayerHandIndex];
-
-    // if (!currentHand.canSplit()) {
-    //   // this.drawHands();
-    //   currentHand.getAction();
-    //   return;
-    // }
-
     this.playerHands.push(new PlayerHand(this, this.currentBet));
 
     // expand hands
     let x = this.playerHands.length - 1;
     while (x > this.currentPlayerHandIndex) {
-      this.playerHands[x] = this.playerHands[x - 1];
+      this.playerHands[x] = PlayerHand.clone(this.playerHands[x - 1]);
       x--;
     }
 
     // split
-    let thisHand = this.playerHands[this.currentPlayerHandIndex];
+    let thisHand = this.currentPlayerHand();
     let splitHand = this.playerHands[this.currentPlayerHandIndex + 1];
 
     splitHand.hand.cards = [];
+
     const c = thisHand.hand.cards[thisHand.hand.cards.length - 1];
     splitHand.hand.cards.push(c);
     thisHand.hand.cards.pop();
@@ -194,23 +187,21 @@ class Game extends React.Component {
       return;
     }
 
-    // this.drawHands();
-    // this.playerHands[this.currentPlayerHandIndex].getAction();
     this.currentMenu = MenuType.MenuHand;
     this.forceUpdate();
   }
 
   playMoreHands(): void {
     this.currentPlayerHandIndex++;
-    let h = this.playerHands[this.currentPlayerHandIndex];
+    let h = this.currentPlayerHand();
     h.hand.dealCard();
     if (h.isDone()) {
       h.process();
       return;
     }
 
-    // this.drawHands();
-    h.getAction();
+    this.currentMenu = MenuType.MenuHand;
+    this.forceUpdate();
   }
 
   playDealerHand(): void {
@@ -243,7 +234,7 @@ class Game extends React.Component {
   }
 
   insureHand(): void {
-    let h = this.playerHands[this.currentPlayerHandIndex];
+    let h = this.currentPlayerHand();
 
     h.bet /= 2;
     h.hand.played = true;
@@ -252,8 +243,8 @@ class Game extends React.Component {
 
     this.money -= h.bet;
 
-    // this.drawHands();
-    // this.betOptions();
+    this.currentMenu = MenuType.MenuGame;
+    this.forceUpdate();
   }
 
   noInsurance(): void {
@@ -262,21 +253,22 @@ class Game extends React.Component {
       this.dealerHand.hand.played = true;
 
       this.payHands();
-      // this.drawHands();
-      // this.betOptions();
+
+      this.currentMenu = MenuType.MenuGame;
+      this.forceUpdate();
       return;
     }
 
-    let h = this.playerHands[this.currentPlayerHandIndex];
+    let h = this.currentPlayerHand();
     if (h.isDone()) {
       this.playDealerHand();
-      // this.drawHands();
-      // this.betOptions();
+      this.currentMenu = MenuType.MenuGame;
+      this.forceUpdate();
       return;
     }
 
-    // this.drawHands();
-    h.getAction();
+    this.currentMenu = MenuType.MenuHand;
+    this.forceUpdate();
   }
 
   payHands(): void {
@@ -310,7 +302,7 @@ class Game extends React.Component {
     }
 
     this.normalizeCurrentBet();
-    //this.saveGame();
+    // this.saveGame();
   }
 
   gameOptions(): void {

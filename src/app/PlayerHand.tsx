@@ -2,6 +2,7 @@ import React from "react";
 import Hand, {CountMethod, Status} from './Hand';
 import Game from './Game';
 import {MenuType} from "./menus/Menu";
+import Card from './Card';
 
 export const MAX_PLAYER_HANDS: number = 7;
 
@@ -32,7 +33,7 @@ class PlayerHand extends React.Component<PropsType, {}> {
 
   render() {
     return (
-      <div key="phs">
+      <div key={`phs-${this.playerHandID}`}>
         {this.hand.cards.map(function(card, key) {
           return (
             <span key={`ph-${card.cardID}-${key}`}>
@@ -45,8 +46,16 @@ class PlayerHand extends React.Component<PropsType, {}> {
     );
   }
 
-  getAction(): void {
+  static clone(playerHand: PlayerHand): PlayerHand {
+    let newPlayerHand = new PlayerHand(playerHand.game, playerHand.bet);
 
+    for(let x = 0; x < playerHand.hand.cards.length; x++) {
+      const card = playerHand.hand.cards[x];
+      const newCard = new Card({value: card.props.value, suitValue: card.props.suitValue});
+      newPlayerHand.hand.cards.push(newCard);
+    }
+
+    return newPlayerHand;
   }
 
   hit(): void {
@@ -107,14 +116,12 @@ class PlayerHand extends React.Component<PropsType, {}> {
     }
 
     this.game.playDealerHand();
-    // this.game.drawHands();
-    // this.game.betOptions();
     this.game.currentMenu = MenuType.MenuGame;
     this.game.forceUpdate();
   }
 
   canSplit(): boolean {
-    if (this.hand.stood || PlayerHand.totalPlayerHands >= MAX_PLAYER_HANDS) {
+    if (this.hand.stood || this.game.playerHands.length >= MAX_PLAYER_HANDS) {
       return false;
     }
 
