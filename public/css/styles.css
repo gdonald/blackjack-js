@@ -1,6 +1,5 @@
 body {
-  background: #808080 !important;
-  /* line-height: 1.0 !important; */
+  background: #c0c0c0 !important;
 }
 
 #root {
@@ -23,11 +22,11 @@ body {
 }
 
 .card {
-  font-size: 6.0em;
+  font-size: 8.0em;
   display: inline-block !important;
   background: transparent !important;
   border: none !important;
-  line-height: 0.9 !important;
+  line-height: 0.8 !important;
 }
 
 .count {
@@ -41,7 +40,7 @@ body {
 }
 
 .menu-buttons {
-  margin: 8px 0 0 4px;
+  margin: 12px 0 0 4px;
 }
 
 .menu-buttons div {

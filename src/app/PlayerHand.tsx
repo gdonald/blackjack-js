@@ -6,7 +6,8 @@ import Card from './Card';
 
 export const MAX_PLAYER_HANDS: number = 7;
 
-interface PropsType {}
+interface PropsType {
+}
 
 class PlayerHand extends React.Component<PropsType, {}> {
 
@@ -34,14 +35,16 @@ class PlayerHand extends React.Component<PropsType, {}> {
   render() {
     return (
       <div key={`phs-${this.playerHandID}`}>
-        {this.hand.cards.map(function(card, key) {
+        {this.hand.cards.map(function (card, key) {
           return (
             <span key={`ph-${card.cardID}-${key}`}>
               {card.render()}
             </span>
           );
         })}
-        <div className="count black">⇒  {this.getValue(CountMethod.Soft)}</div>
+        <div className="count black">
+          ⇒ {this.getValue(CountMethod.Soft)} &nbsp;{this.statusDisplay()}{this.betDisplay()}{this.currentHandDisplay()} &nbsp;{this.statusDisplayText()}
+        </div>
       </div>
     );
   }
@@ -49,7 +52,7 @@ class PlayerHand extends React.Component<PropsType, {}> {
   static clone(playerHand: PlayerHand): PlayerHand {
     let newPlayerHand = new PlayerHand(playerHand.game, playerHand.bet);
 
-    for(let x = 0; x < playerHand.hand.cards.length; x++) {
+    for (let x = 0; x < playerHand.hand.cards.length; x++) {
       const card = playerHand.hand.cards[x];
       const newCard = new Card({value: card.props.value, suitValue: card.props.suitValue});
       newPlayerHand.hand.cards.push(newCard);
@@ -59,7 +62,7 @@ class PlayerHand extends React.Component<PropsType, {}> {
   }
 
   hit(): void {
-    if(!this.canHit()) {
+    if (!this.canHit()) {
       return;
     }
 
@@ -75,7 +78,7 @@ class PlayerHand extends React.Component<PropsType, {}> {
   }
 
   dbl(): void {
-    if(!this.canDbl()) {
+    if (!this.canDbl()) {
       return;
     }
 
@@ -92,7 +95,7 @@ class PlayerHand extends React.Component<PropsType, {}> {
   }
 
   stand(): void {
-    if(!this.canStand()) {
+    if (!this.canStand()) {
       return;
     }
 
@@ -214,6 +217,47 @@ class PlayerHand extends React.Component<PropsType, {}> {
     }
 
     return total;
+  }
+
+  statusDisplay(): string {
+    switch (this.status) {
+      case Status.Won:
+        return '+';
+      case Status.Lost:
+        return '-';
+    }
+  }
+
+  statusDisplayText(): string {
+    if (this.status == Status.Lost) {
+      if (this.isBusted()) {
+        return "Busted!";
+      }
+      else {
+        return "Lose!";
+      }
+    }
+    else if (this.status == Status.Won) {
+      if (this.hand.isBlackjack()) {
+        return "Blackjack!";
+      }
+      else {
+        return "Won!";
+      }
+    }
+    else if (this.status == Status.Push) {
+      return "Push";
+    }
+  }
+
+  betDisplay(): string {
+    return this.game.formattedMoney(this.bet);
+  }
+
+  currentHandDisplay(): string {
+    if (!this.hand.played && this.game.currentPlayerHand() == this) {
+      return " ⇐";
+    }
   }
 }
 

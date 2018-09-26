@@ -15,10 +15,13 @@ class MenuInsurance extends React.Component<PropsType, {}> {
 
   render() {
     return (
-      <div className="menu-buttons">
-        <div className="btn btn-dark" onClick={this.game.insureHand}>Double</div>
-        <div className="btn btn-dark" onClick={this.game.noInsurance}>Hit</div>
-      </div>
+      <>
+        <div className="word">Insurance?</div>
+        <div className="menu-buttons">
+          <div className="btn btn-dark" onClick={this.game.noInsurance}>No</div>
+          <div className="btn btn-dark" onClick={this.game.insureHand}>Yes</div>
+        </div>
+      </>
     );
   }
 }

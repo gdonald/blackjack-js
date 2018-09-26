@@ -12,7 +12,7 @@ export const MAX_NUM_DECKS: number = 8;
 
 class Game extends React.Component {
   numDecks: number = 8;
-  shoeType: number = ShoeType.Sevens;
+  shoeType: number = ShoeType.Regular;
   shoe: Shoe = null;
   dealerHand: DealerHand = null;
   playerHands: PlayerHand[] = [];
@@ -53,7 +53,7 @@ class Game extends React.Component {
       <>
         <div className="word black" key="d">Dealer:</div>
         {this.dealerHand.render()}
-        <div className="word black" key="p">Player {this.formattedMoney()}:</div>
+        <div className="word black" key="p">Player {this.formattedMoney(this.money)}:</div>
         {this.playerHands.map(function(playerHand, key) {
           return playerHand.render();
         })}
@@ -89,12 +89,8 @@ class Game extends React.Component {
     playerHand.hand.dealCard();
 
     if (this.dealerHand.upCardIsAce() && !playerHand.hand.isBlackjack()) {
-      this.askInsurance();
-
-      if(this.mounted) {
-        this.forceUpdate();
-      }
-
+      this.currentMenu = MenuType.MenuInsurance;
+      this.forceUpdateIfMounted();
       return;
     }
 
@@ -102,23 +98,22 @@ class Game extends React.Component {
       this.dealerHand.hideDownCard = false;
       this.payHands();
       this.currentMenu = MenuType.MenuGame;
-
-      if(this.mounted) {
-        this.forceUpdate();
-      }
-
+      this.forceUpdateIfMounted();
       return;
     }
 
     this.currentMenu = MenuType.MenuHand;
+    this.forceUpdateIfMounted();
+  }
 
+  forceUpdateIfMounted(): void {
     if(this.mounted) {
       this.forceUpdate();
     }
   }
 
-  formattedMoney(): string {
-    return (this.money / 100.0).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+  formattedMoney(value: number): string {
+    return (value / 100.0).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
   }
 
   formattedBet(): string {
@@ -227,10 +222,6 @@ class Game extends React.Component {
 
     this.dealerHand.hand.played = true;
     this.payHands();
-  }
-
-  askInsurance(): void {
-
   }
 
   insureHand(): void {
