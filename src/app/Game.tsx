@@ -4,13 +4,16 @@ import PlayerHand from "./PlayerHand";
 import {CountMethod, Status} from "./Hand";
 import Menu, {MenuType} from './menus/Menu';
 import React from 'react';
+import Cookies from 'universal-cookie';
 
 export const MIN_BET: number = 500;
 export const MAX_BET: number = 10000000;
 export const MIN_NUM_DECKS: number = 1;
 export const MAX_NUM_DECKS: number = 8;
+export const START_MONEY: number = 10000;
 
 class Game extends React.Component {
+  cookies: Cookies = null;
   numDecks: number = 8;
   shoeType: number = ShoeType.Regular;
   shoe: Shoe = null;
@@ -18,13 +21,17 @@ class Game extends React.Component {
   playerHands: PlayerHand[] = [];
   currentPlayerHandIndex: number = 0;
   currentBet: number = MIN_BET;
-  money: number = 10000;
+  money: number = START_MONEY;
   menu: Menu = null;
   currentMenu: number = MenuType.MenuHand;
   mounted: boolean = false;
 
   constructor(props) {
     super(props);
+
+    this.cookies = new Cookies();
+    this.loadGame();
+
     this.shoe = new Shoe(this.numDecks);
     this.dealNewHand();
     this.menu = new Menu({game: this});
@@ -293,7 +300,7 @@ class Game extends React.Component {
     }
 
     this.normalizeCurrentBet();
-    // this.saveGame();
+    this.saveGame();
   }
 
   gameOptions(): void {
@@ -330,6 +337,7 @@ class Game extends React.Component {
     this.dealNewHand();
     this.currentMenu = MenuType.MenuHand;
     this.forceUpdate();
+    this.saveGame();
   }
 
   normalizeCurrentBet(): void {
@@ -352,6 +360,7 @@ class Game extends React.Component {
 
     this.currentMenu = MenuType.MenuOptions;
     this.forceUpdate();
+    this.saveGame();
   }
 
   normalizeDeckCount(): void {
@@ -362,11 +371,20 @@ class Game extends React.Component {
     }
   }
 
+  normalizeShoeType(): void {
+    if(this.shoeType < 0) {
+      this.shoeType = ShoeType.Regular;
+    } else if(this.shoeType > ShoeType.ShoeTypeCount) {
+      this.shoeType = ShoeType.Regular;
+    }
+  }
+
   newRegular(): void {
     this.shoeType = ShoeType.Regular;
     this.shoe.newRegular();
     this.currentMenu = MenuType.MenuOptions;
     this.forceUpdate();
+    this.saveGame();
   }
 
   newAces(): void {
@@ -374,6 +392,7 @@ class Game extends React.Component {
     this.shoe.newAces();
     this.currentMenu = MenuType.MenuOptions;
     this.forceUpdate();
+    this.saveGame();
   }
 
   newJacks(): void {
@@ -381,6 +400,7 @@ class Game extends React.Component {
     this.shoe.newJacks();
     this.currentMenu = MenuType.MenuOptions;
     this.forceUpdate();
+    this.saveGame();
   }
 
   newAcesJacks(): void {
@@ -388,6 +408,7 @@ class Game extends React.Component {
     this.shoe.newAcesJacks();
     this.currentMenu = MenuType.MenuOptions;
     this.forceUpdate();
+    this.saveGame();
   }
 
   newSevens(): void {
@@ -395,6 +416,7 @@ class Game extends React.Component {
     this.shoe.newSevens();
     this.currentMenu = MenuType.MenuOptions;
     this.forceUpdate();
+    this.saveGame();
   }
 
   newEights(): void {
@@ -402,14 +424,33 @@ class Game extends React.Component {
     this.shoe.newEights();
     this.currentMenu = MenuType.MenuOptions;
     this.forceUpdate();
+    this.saveGame();
   }
 
   saveGame(): void {
-
+    const gameState = `${this.money}|${this.currentBet}|${this.numDecks}|${this.shoeType}`;
+    this.cookies.set('gameState', gameState, { path: '/' });
   }
 
   loadGame(): void {
+    const gameState = this.cookies.get('gameState');
+    if(gameState === undefined) {
+      return;
+    }
 
+    const parts = gameState.toString().split('|');
+    this.money = parseInt(parts[0]);
+    this.currentBet = parseInt(parts[1]);
+    this.numDecks = parseInt(parts[2]);
+    this.shoeType = parseInt(parts[3]);
+
+    this.normalizeCurrentBet();
+    this.normalizeDeckCount();
+    this.normalizeShoeType();
+
+    if(this.money <= 0) {
+      this.money = START_MONEY;
+    }
   }
 }
 

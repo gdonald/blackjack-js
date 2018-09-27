@@ -1,6 +1,6 @@
 import Card from "./Card";
 
-export enum ShoeType { Regular, Aces, Jacks, AcesJacks, Sevens, Eights };
+export enum ShoeType { Regular, Aces, Jacks, AcesJacks, Sevens, Eights, ShoeTypeCount };
 
 class Shoe {
 

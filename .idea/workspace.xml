@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c42f2570-8fb0-4bc3-ad16-32a29c5add64" name="Default Changelist" comment="fix splitting with new player hand clone">
+    <list default="true" id="c42f2570-8fb0-4bc3-ad16-32a29c5add64" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/build/main.4cae913c9a5780d1cf65.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/Game.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Game.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/PlayerHand.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/PlayerHand.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/menus/MenuInsurance.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/menus/MenuInsurance.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/Shoe.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Shoe.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,12 +20,13 @@
     <session id="-1753038151">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="10" />
-          <entry key="project.open.time.0" value="6" />
+          <entry key="project.closed" value="12" />
+          <entry key="project.open.time.0" value="7" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.4" value="2" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.opened" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -32,30 +35,30 @@
           <entry key="gitignore" value="1" />
           <entry key="html" value="4" />
           <entry key="js" value="5" />
-          <entry key="json" value="6" />
+          <entry key="json" value="7" />
           <entry key="md" value="2" />
-          <entry key="ts" value="20" />
-          <entry key="tsx" value="58" />
-          <entry key="xml" value="1" />
+          <entry key="ts" value="21" />
+          <entry key="tsx" value="62" />
+          <entry key="xml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="12" />
           <entry key="HTML" value="4" />
-          <entry key="JSON" value="4" />
+          <entry key="JSON" value="5" />
           <entry key="JavaScript" value="5" />
           <entry key="Markdown" value="2" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="TypeScript" value="20" />
-          <entry key="TypeScript JSX" value="58" />
-          <entry key="XML" value="1" />
+          <entry key="TypeScript" value="21" />
+          <entry key="TypeScript JSX" value="62" />
+          <entry key="XML" value="2" />
           <entry key="tsconfig" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts">
         <counts>
-          <entry key="TypeScriptServerServiceImpl" value="8" />
+          <entry key="TypeScriptServerServiceImpl" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -66,9 +69,9 @@
           <entry key="js" value="19" />
           <entry key="json" value="43" />
           <entry key="md" value="178" />
-          <entry key="ts" value="2900" />
-          <entry key="tsx" value="6008" />
-          <entry key="txt" value="84" />
+          <entry key="ts" value="2915" />
+          <entry key="tsx" value="6616" />
+          <entry key="txt" value="103" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -78,50 +81,32 @@
           <entry key="JSON" value="43" />
           <entry key="JavaScript" value="19" />
           <entry key="Markdown" value="178" />
-          <entry key="PLAIN_TEXT" value="99" />
-          <entry key="TypeScript" value="2900" />
-          <entry key="TypeScript JSX" value="6008" />
+          <entry key="PLAIN_TEXT" value="118" />
+          <entry key="TypeScript" value="2915" />
+          <entry key="TypeScript JSX" value="6616" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/app/PlayerHand.tsx">
+        <entry file="file://$PROJECT_DIR$/src/app/Game.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="574">
-              <caret line="253" column="44" selection-start-line="253" selection-start-column="44" selection-end-line="253" selection-end-column="44" />
+            <state relative-caret-position="376">
+              <caret line="433" lean-forward="true" selection-start-line="433" selection-end-line="433" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#0#40#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/Hand.ts">
+        <entry file="file://$PROJECT_DIR$/src/app/Shoe.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="36">
-              <caret line="3" column="12" lean-forward="true" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/Game.tsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="55" column="82" selection-start-line="55" selection-start-column="82" selection-end-line="55" selection-end-column="82" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/css/styles.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+              <caret line="2" column="85" selection-start-line="2" selection-start-column="85" selection-end-line="2" selection-end-column="85" />
             </state>
           </provider>
         </entry>
@@ -165,7 +150,6 @@
         <option value="$PROJECT_DIR$/src/app/menus/MenuDecks.tsx" />
         <option value="$PROJECT_DIR$/src/app/menus/MenuNewNumDecks.tsx" />
         <option value="$PROJECT_DIR$/src/app/menus/MenuHand.tsx" />
-        <option value="$PROJECT_DIR$/src/app/Shoe.ts" />
         <option value="$PROJECT_DIR$/src/app/menus/MenuBet.tsx" />
         <option value="$PROJECT_DIR$/src/app/menus/MenuOptions.tsx" />
         <option value="$PROJECT_DIR$/src/app/menus/Menu.tsx" />
@@ -173,8 +157,9 @@
         <option value="$PROJECT_DIR$/src/app/menus/MenuDeckType.tsx" />
         <option value="$PROJECT_DIR$/src/app/menus/MenuInsurance.tsx" />
         <option value="$PROJECT_DIR$/public/css/styles.css" />
-        <option value="$PROJECT_DIR$/src/app/Game.tsx" />
         <option value="$PROJECT_DIR$/src/app/PlayerHand.tsx" />
+        <option value="$PROJECT_DIR$/src/app/Shoe.ts" />
+        <option value="$PROJECT_DIR$/src/app/Game.tsx" />
       </list>
     </option>
   </component>
@@ -230,6 +215,12 @@
               <item name="blackjack-js" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="blackjack-js" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blackjack-js" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -266,6 +257,9 @@
     </option>
   </component>
   <component name="SpringUtil" SPRING_PRE_LOADER_OPTION="true" />
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -286,7 +280,9 @@
       <workItem from="1537829581678" duration="4053000" />
       <workItem from="1537915420290" duration="6000" />
       <workItem from="1537915427774" duration="23000" />
-      <workItem from="1537915463128" duration="3056000" />
+      <workItem from="1537915463128" duration="3639000" />
+      <workItem from="1538001410499" duration="1006000" />
+      <workItem from="1538003224883" duration="3665000" />
     </task>
     <task id="LOCAL-00001" summary="update readme">
       <created>1537489755803</created>
@@ -316,19 +312,26 @@
       <option name="project" value="LOCAL" />
       <updated>1537836927463</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="implement insurance">
+      <created>1537923549606</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1537923549606</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58996000" />
+    <option name="totallyTimeSpent" value="64250000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="45" y="23" width="1875" height="1057" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18520547" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4984227" visible="true" weight="0.18958904" />
+      <window_info id="Structure" order="1" sideWeight="0.50157726" side_tool="true" visible="true" weight="0.18958904" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -337,7 +340,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32910052" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.32910052" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="10" />
       <window_info anchor="bottom" id="Terminal" order="11" />
@@ -384,7 +387,8 @@
     <MESSAGE value="update readme" />
     <MESSAGE value="change Card class to component" />
     <MESSAGE value="fix splitting with new player hand clone" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix splitting with new player hand clone" />
+    <MESSAGE value="implement insurance" />
+    <option name="LAST_COMMIT_MESSAGE" value="implement insurance" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/README.md">
@@ -395,11 +399,6 @@
           </first_editor>
           <second_editor />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3140" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
@@ -413,13 +412,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="3" column="19" lean-forward="true" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -448,13 +440,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/Blackjack.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="46" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
         </state>
       </provider>
     </entry>
@@ -507,24 +492,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/Shoe.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="149" lean-forward="true" selection-start-line="149" selection-end-line="149" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/Card.tsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
           <caret line="51" column="49" selection-start-line="51" selection-start-column="49" selection-end-line="51" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/Hand.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="3" column="12" lean-forward="true" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -535,6 +506,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/PlayerHand.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/Hand.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="3" column="12" lean-forward="true" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/css/styles.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -542,19 +530,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/Game.tsx">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="55" column="82" selection-start-line="55" selection-start-column="82" selection-end-line="55" selection-end-column="82" />
+        <state relative-caret-position="414">
+          <caret line="23" column="29" lean-forward="true" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/PlayerHand.tsx">
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/Blackjack.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="253" column="44" selection-start-line="253" selection-start-column="44" selection-end-line="253" selection-end-column="44" />
+        <state relative-caret-position="72">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/Shoe.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="85" selection-start-line="2" selection-start-column="85" selection-end-line="2" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/Game.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="433" lean-forward="true" selection-start-line="433" selection-end-line="433" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
