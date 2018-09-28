@@ -1,14 +1,14 @@
-import React from "react";
-import Game from "../Game";
+import React from 'react';
+import Game from '../Game';
 import MenuHand from './MenuHand';
-import MenuGame from "./MenuGame";
-import MenuDeckType from "./MenuDeckType";
-import MenuInsurance from "./MenuInsurance";
-import MenuBet from "./MenuBet";
-import MenuDeckCount from "./MenuDeckCount";
-import MenuOptions from "./MenuOptions";
+import MenuGame from './MenuGame';
+import MenuDeckType from './MenuDeckType';
+import MenuInsurance from './MenuInsurance';
+import MenuBet from './MenuBet';
+import MenuDeckCount from './MenuDeckCount';
+import MenuOptions from './MenuOptions';
 
-export enum MenuType { MenuGame, MenuHand, MenuBet, MenuDeckType, MenuDeckCount, MenuInsurance, MenuOptions };
+export enum MenuType { MenuGame, MenuHand, MenuBet, MenuDeckType, MenuDeckCount, MenuInsurance, MenuOptions }
 
 interface PropsType {
   game: Game

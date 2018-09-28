@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import Game from "./Game";
+import Game from './Game';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface PropsType {}

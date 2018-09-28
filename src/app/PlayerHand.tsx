@@ -1,7 +1,7 @@
-import React from "react";
-import Hand, {CountMethod, Status} from './Hand';
+import React from 'react';
+import Hand, { CountMethod, Status } from './Hand';
 import Game from './Game';
-import {MenuType} from "./menus/Menu";
+import { MenuType } from './menus/Menu';
 import Card from './Card';
 
 export const MAX_PLAYER_HANDS: number = 7;
@@ -132,11 +132,7 @@ class PlayerHand extends React.Component<PropsType, {}> {
       return false;
     }
 
-    if (this.hand.cards.length == 2 && this.hand.cards[0].props.value == this.hand.cards[1].props.value) {
-      return true;
-    }
-
-    return false;
+    return this.hand.cards.length == 2 && this.hand.cards[0].props.value == this.hand.cards[1].props.value;
   }
 
   canDbl(): boolean {
@@ -144,36 +140,21 @@ class PlayerHand extends React.Component<PropsType, {}> {
       return false;
     }
 
-    if (this.hand.stood
-      || this.hand.cards.length != 2
-      || this.isBusted()
-      || this.hand.isBlackjack()) {
-      return false;
-    }
-
-    return true;
+    return !(this.hand.stood || this.hand.cards.length != 2 || this.isBusted() || Game.isBlackjack(this.hand.cards));
   }
 
   canStand(): boolean {
-    if (this.hand.stood || this.isBusted() || this.hand.isBlackjack()) {
-      return false;
-    }
-
-    return true;
+    return !(this.hand.stood || this.isBusted() || Game.isBlackjack(this.hand.cards));
   }
 
   canHit(): boolean {
-    if (this.hand.played || this.hand.stood || 21 == this.getValue(CountMethod.Hard) || this.hand.isBlackjack() || this.isBusted()) {
-      return false;
-    }
-
-    return true;
+    return !(this.hand.played || this.hand.stood || 21 == this.getValue(CountMethod.Hard) || Game.isBlackjack(this.hand.cards) || this.isBusted());
   }
 
   isDone(): boolean {
     if (this.hand.played
       || this.hand.stood
-      || this.hand.isBlackjack()
+      || Game.isBlackjack(this.hand.cards)
       || this.isBusted()
       || 21 == this.getValue(CountMethod.Soft)
       || 21 == this.getValue(CountMethod.Hard)) {
@@ -231,32 +212,32 @@ class PlayerHand extends React.Component<PropsType, {}> {
   statusDisplayText(): string {
     if (this.status == Status.Lost) {
       if (this.isBusted()) {
-        return "Busted!";
+        return 'Busted!';
       }
       else {
-        return "Lose!";
+        return 'Lose!';
       }
     }
     else if (this.status == Status.Won) {
-      if (this.hand.isBlackjack()) {
-        return "Blackjack!";
+      if (Game.isBlackjack(this.hand.cards)) {
+        return 'Blackjack!';
       }
       else {
-        return "Won!";
+        return 'Won!';
       }
     }
     else if (this.status == Status.Push) {
-      return "Push";
+      return 'Push';
     }
   }
 
   betDisplay(): string {
-    return this.game.formattedMoney(this.bet);
+    return Game.formattedMoney(this.bet);
   }
 
   currentHandDisplay(): string {
     if (!this.hand.played && this.game.currentPlayerHand() == this) {
-      return " ⇐";
+      return ' ⇐';
     }
   }
 }

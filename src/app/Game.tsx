@@ -1,16 +1,17 @@
-import Shoe, { ShoeType } from "./Shoe";
-import DealerHand from "./DealerHand";
-import PlayerHand from "./PlayerHand";
-import {CountMethod, Status} from "./Hand";
+import Shoe, { ShoeType } from './Shoe';
+import DealerHand from './DealerHand';
+import PlayerHand from './PlayerHand';
+import { CountMethod, Status } from './Hand';
 import Menu, {MenuType} from './menus/Menu';
 import React from 'react';
 import Cookies from 'universal-cookie';
+import Card from "./Card";
 
-export const MIN_BET: number = 500;
-export const MAX_BET: number = 10000000;
-export const MIN_NUM_DECKS: number = 1;
-export const MAX_NUM_DECKS: number = 8;
-export const START_MONEY: number = 10000;
+const MIN_BET: number = 500;
+const MAX_BET: number = 10000000;
+const MIN_NUM_DECKS: number = 1;
+const MAX_NUM_DECKS: number = 8;
+const START_MONEY: number = 10000;
 
 class Game extends React.Component {
   cookies: Cookies = null;
@@ -60,8 +61,8 @@ class Game extends React.Component {
       <>
         <div className="word black" key="d">Dealer:</div>
         {this.dealerHand.render()}
-        <div className="word black" key="p">Player {this.formattedMoney(this.money)}:</div>
-        {this.playerHands.map(function(playerHand, key) {
+        <div className="word black" key="p">Player {Game.formattedMoney(this.money)}:</div>
+        {this.playerHands.map(function(playerHand) {
           return playerHand.render();
         })}
         {this.menu.render()}
@@ -95,7 +96,7 @@ class Game extends React.Component {
     this.dealerHand.hand.dealCard();
     playerHand.hand.dealCard();
 
-    if (this.dealerHand.upCardIsAce() && !playerHand.hand.isBlackjack()) {
+    if (this.dealerHand.upCardIsAce() && !Game.isBlackjack(playerHand.hand.cards)) {
       this.currentMenu = MenuType.MenuInsurance;
       this.forceUpdateIfMounted();
       return;
@@ -119,7 +120,15 @@ class Game extends React.Component {
     }
   }
 
-  formattedMoney(value: number): string {
+  static isBlackjack(cards: Card[]): boolean {
+    if (cards.length !== 2) {
+      return false;
+    }
+
+    return cards[0].isAce() && cards[1].isTen() || cards[1].isAce() && cards[0].isTen();
+  }
+
+  static formattedMoney(value: number): string {
     return (value / 100.0).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
   }
 
@@ -147,9 +156,9 @@ class Game extends React.Component {
 
   needToPlayDealerHand(): boolean {
     for (let x = 0; x < this.playerHands.length; x++) {
-      let h = this.playerHands[x].hand;
+      let playerHand = this.playerHands[x];
 
-      if (!(h.isBusted() || h.isBlackjack())) {
+      if (!(playerHand.isBusted() || Game.isBlackjack(playerHand.hand.cards))) {
         return true;
       }
     }
@@ -207,7 +216,7 @@ class Game extends React.Component {
   }
 
   playDealerHand(): void {
-    if (this.dealerHand.hand.isBlackjack()) {
+    if (Game.isBlackjack(this.dealerHand.hand.cards)) {
       this.dealerHand.hideDownCard = false;
     }
 
@@ -246,7 +255,7 @@ class Game extends React.Component {
   }
 
   noInsurance(): void {
-    if (this.dealerHand.hand.isBlackjack()) {
+    if (Game.isBlackjack(this.dealerHand.hand.cards)) {
       this.dealerHand.hideDownCard = false;
       this.dealerHand.hand.played = true;
 
@@ -285,7 +294,7 @@ class Game extends React.Component {
       let phv = h.getValue(CountMethod.Soft);
 
       if (dhb || phv > dhv) {
-        if (h.hand.isBlackjack()) {
+        if (Game.isBlackjack(h.hand.cards)) {
           h.bet *= 1.5;
         }
 
@@ -379,52 +388,47 @@ class Game extends React.Component {
     }
   }
 
+  newHandSelected(): void {
+    this.dealNewHand();
+    this.currentMenu = MenuType.MenuHand;
+    this.forceUpdate();
+    this.saveGame();
+  }
+
   newRegular(): void {
     this.shoeType = ShoeType.Regular;
     this.shoe.newRegular();
-    this.currentMenu = MenuType.MenuOptions;
-    this.forceUpdate();
-    this.saveGame();
+    this.newHandSelected();
   }
 
   newAces(): void {
     this.shoeType = ShoeType.Aces;
     this.shoe.newAces();
-    this.currentMenu = MenuType.MenuOptions;
-    this.forceUpdate();
-    this.saveGame();
+    this.newHandSelected();
   }
 
   newJacks(): void {
     this.shoeType = ShoeType.Jacks;
     this.shoe.newJacks();
-    this.currentMenu = MenuType.MenuOptions;
-    this.forceUpdate();
-    this.saveGame();
+    this.newHandSelected();
   }
 
   newAcesJacks(): void {
     this.shoeType = ShoeType.AcesJacks;
     this.shoe.newAcesJacks();
-    this.currentMenu = MenuType.MenuOptions;
-    this.forceUpdate();
-    this.saveGame();
+    this.newHandSelected();
   }
 
   newSevens(): void {
     this.shoeType = ShoeType.Sevens;
     this.shoe.newSevens();
-    this.currentMenu = MenuType.MenuOptions;
-    this.forceUpdate();
-    this.saveGame();
+    this.newHandSelected();
   }
 
   newEights(): void {
     this.shoeType = ShoeType.Eights;
     this.shoe.newEights();
-    this.currentMenu = MenuType.MenuOptions;
-    this.forceUpdate();
-    this.saveGame();
+    this.newHandSelected();
   }
 
   saveGame(): void {

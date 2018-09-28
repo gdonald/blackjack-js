@@ -43,8 +43,8 @@ class Card extends React.Component<PropsType, {}> {
 
   colorClass() {
     let klass = 'card ';
-    klass += [1, 2].indexOf(this.props.suitValue) > -1 ? 'red' : 'black'
-    return klass
+    klass += [1, 2].indexOf(this.props.suitValue) > -1 ? 'red' : 'black';
+    return klass;
   }
 
   render() {

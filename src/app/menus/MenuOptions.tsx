@@ -1,5 +1,5 @@
-import React from "react";
-import Game from "../Game";
+import React from 'react';
+import Game from '../Game';
 
 interface PropsType {
   game: Game

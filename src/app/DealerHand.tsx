@@ -1,7 +1,7 @@
-import React from "react";
-import Game from "./Game";
+import React from 'react';
+import Game from './Game';
 import Hand, {CountMethod} from './Hand';
-import Card from "./Card";
+import Card from './Card';
 
 class DealerHand extends React.Component {
   hideDownCard: boolean = true;
