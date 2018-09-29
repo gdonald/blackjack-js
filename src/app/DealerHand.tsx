@@ -16,12 +16,12 @@ class DealerHand extends React.Component {
 
   render() {
     return (
-      <>
+      <div className={this.game.isLinux() ? 'linux' : ''}>
         {this.displayHand().cards.map(function (card) {
           return card.render();
         })}
         <div className="count black">⇒  {this.getValue(CountMethod.Soft)}</div>
-      </>
+      </div>
     );
   }
 

@@ -29,6 +29,10 @@ body {
   line-height: 0.8 !important;
 }
 
+.linux-card {
+  line-height: 0.6 !important;
+}
+
 .count {
   display: inline-block;
   font-size: 1.2em;

@@ -34,7 +34,7 @@ class PlayerHand extends React.Component<PropsType, {}> {
 
   render() {
     return (
-      <div key={`phs-${this.playerHandID}`}>
+      <div className={this.game.isLinux() ? 'linux' : ''} key={`phs-${this.playerHandID}`}>
         {this.hand.cards.map(function (card, key) {
           return (
             <span key={`ph-${card.cardID}-${key}`}>

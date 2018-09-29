@@ -78,6 +78,10 @@ class Game extends React.Component {
     this.mounted = false;
   }
 
+  isLinux(): boolean {
+    return navigator.appVersion.indexOf('Linux') > -1;
+  }
+
   dealNewHand(): void {
     if (this.shoe.needToShuffle()) {
       this.shoe.newShoe(this.shoeType);
@@ -389,8 +393,8 @@ class Game extends React.Component {
   }
 
   newHandSelected(): void {
-    this.dealNewHand();
     this.currentMenu = MenuType.MenuHand;
+    this.dealNewHand();
     this.forceUpdate();
     this.saveGame();
   }
