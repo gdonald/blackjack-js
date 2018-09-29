@@ -16,7 +16,7 @@ class DealerHand extends React.Component {
 
   render() {
     return (
-      <div className={this.game.isLinux() ? 'linux' : ''}>
+      <div className={`${this.game.isLinux() ? 'linux' : ''}${this.game.isWindoze() ? 'windoze' : ''}`}>
         {this.displayHand().cards.map(function (card) {
           return card.render();
         })}

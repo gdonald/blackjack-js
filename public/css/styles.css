@@ -22,15 +22,25 @@ body {
 }
 
 .card {
-  font-size: 8.0em;
+  font-size: 128px;
   display: inline-block !important;
   background: transparent !important;
   border: none !important;
   line-height: 0.8 !important;
 }
 
-.linux-card {
-  line-height: 0.6 !important;
+.linux span, .linux span span {
+  font-size: 80px;
+  line-height: 1.5 !important;
+}
+
+.windoze span, .windoze span span {
+  font-size: 108px;
+  line-height: 1.0 !important;
+}
+
+.windoze > span {
+  margin-right: 6px;
 }
 
 .count {

@@ -79,7 +79,23 @@ class Game extends React.Component {
   }
 
   isLinux(): boolean {
-    return navigator.appVersion.indexOf('Linux') > -1;
+    if(navigator.appVersion.indexOf('Linux') > -1) {
+      return true;
+    }
+
+    if(navigator.appVersion.indexOf('X11') > -1) {
+      return true;
+    }
+
+    return false;
+  }
+
+  isWindoze(): boolean {
+    if(navigator.appVersion.indexOf('Windows') > -1) {
+      return true;
+    }
+
+    return false;
   }
 
   dealNewHand(): void {
