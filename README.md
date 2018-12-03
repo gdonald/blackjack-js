@@ -1,10 +1,6 @@
 # blackjack-js
 
-Blackjack in Javascript (Typescript)
-
-#### Alpha Development State
-
-*You won't be impressed yet :frowning:*
+Blackjack in ReactJS (Typescript)
 
 #### Install
 
