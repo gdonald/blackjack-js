@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-interface PropsType {
-  value: number
-  suitValue: number
+interface IPropsType {
+  value: number;
+  suitValue: number;
 }
 
-class Card extends React.Component<PropsType, {}> {
+class Card extends React.Component<IPropsType, {}> {
 
-  static faces: string[][] = [
+  public static faces: string[][] = [
     ["🂡", "🂱", "🃁", "🃑"],
     ["🂢", "🂲", "🃂", "🃒"],
     ["🂣", "🂳", "🃃", "🃓"],
@@ -21,38 +21,38 @@ class Card extends React.Component<PropsType, {}> {
     ["🂫", "🂻", "🃋", "🃛"],
     ["🂭", "🂽", "🃍", "🃝"],
     ["🂮", "🂾", "🃎", "🃞"],
-    ["🂠", "", "", ""]
+    ["🂠", "", "", ""],
   ];
 
-  static cardID: number = 0;
+  public static cardID: number = 0;
 
-  cardID: number = 0;
+  public readonly cardID: number = 0;
 
   constructor(props) {
     super(props);
     this.cardID = Card.cardID++;
   }
 
-  isTen(): boolean {
-    return this.props.value > 8;
-  }
-
-  isAce(): boolean {
-    return this.props.value == 0;
-  }
-
-  colorClass() {
-    let klass = 'card ';
-    klass += [1, 2].indexOf(this.props.suitValue) > -1 ? 'red' : 'black';
-    return klass;
-  }
-
-  render() {
+  public render() {
     return (
       <span className={this.colorClass()} key={`c-${this.cardID}`}>
         {Card.faces[this.props.value][this.props.suitValue]}
       </span>
     );
+  }
+
+  public isTen(): boolean {
+    return this.props.value > 8;
+  }
+
+  public isAce(): boolean {
+    return this.props.value === 0;
+  }
+
+  private colorClass() {
+    let klass = "card ";
+    klass += [1, 2].indexOf(this.props.suitValue) > -1 ? "red" : "black";
+    return klass;
   }
 }
 
