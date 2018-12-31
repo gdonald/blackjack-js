@@ -2,6 +2,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
   entry: './src/app/Blackjack.tsx',
   plugins: [
     new CleanWebpackPlugin(['public/build']),
@@ -18,7 +19,7 @@ module.exports = {
   },
   module: {
     rules: [
-      {test: /\.tsx?$/, loader: 'ts-loader'},
+      { test: /\.tsx?$/, loader: 'ts-loader'},
       { test: /\.css$/, use: ['style-loader', 'css-loader'] }
     ]
   }
