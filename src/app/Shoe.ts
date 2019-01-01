@@ -1,4 +1,4 @@
-import Card from './Card';
+import Card from "./Card";
 
 export enum ShoeType { Regular, Aces, Jacks, AcesJacks, Sevens, Eights, ShoeTypeCount }
 
@@ -14,6 +14,23 @@ class Shoe {
     [81, 2],
     [80, 1],
   ];
+
+  public static shuffleArray(cards: Card[]) {
+    let currentIndex: number = cards.length;
+    let temporaryValue: Card;
+    let randomIndex: number;
+
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      temporaryValue = cards[currentIndex];
+      cards[currentIndex] = cards[randomIndex];
+      cards[randomIndex] = temporaryValue;
+    }
+
+    return cards;
+  }
 
   public numDecks: number = 1;
   public cards: Card[] = [];
@@ -40,23 +57,6 @@ class Shoe {
     }
 
     return false;
-  }
-
-  static shuffleArray(cards: Card[]) {
-    let currentIndex: number = cards.length;
-    let temporaryValue: Card;
-    let randomIndex: number;
-
-    while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      temporaryValue = cards[currentIndex];
-      cards[currentIndex] = cards[randomIndex];
-      cards[randomIndex] = temporaryValue;
-    }
-
-    return cards;
   }
 
   public shuffle(): void {

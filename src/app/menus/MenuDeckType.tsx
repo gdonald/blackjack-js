@@ -1,19 +1,19 @@
-import React from 'react';
-import Game from '../Game';
+import React from "react";
+import Game from "../Game";
 
-interface PropsType {
-  game: Game
+interface IPropsType {
+  game: Game;
 }
 
-class MenuDeckType extends React.Component<PropsType, {}> {
-  game: Game = null;
+class MenuDeckType extends React.Component<IPropsType, {}> {
+  public game: Game = null;
 
   constructor(props) {
     super(props);
     this.game = props.game;
   }
 
-  render() {
+  public render() {
     return (
       <div className="menu-buttons">
         <div className="btn btn-dark" onClick={this.game.newRegular}>Regular</div>

@@ -1,5 +1,5 @@
-import Card from './Card';
-import Game from './Game';
+import Card from "./Card";
+import Game from "./Game";
 
 export enum Status { Unknown, Won, Lost, Push }
 export enum CountMethod { Soft, Hard }

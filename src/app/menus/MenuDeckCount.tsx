@@ -1,23 +1,24 @@
-import React from 'react';
-import Game from '../Game';
+import React from "react";
+import Game from "../Game";
 
-interface PropsType {
-  game: Game
+interface IPropsType {
+  game: Game;
 }
 
-class MenuDeckCount extends React.Component<PropsType, {}> {
-  game: Game = null;
+class MenuDeckCount extends React.Component<IPropsType, {}> {
+  public game: Game = null;
 
   constructor(props) {
     super(props);
     this.game = props.game;
   }
 
-  render() {
+  public render() {
     return (
       <form onSubmit={this.game.updateDeckCount}>
         <div className="input-group get-deck-count">
-          <input type="text" name="deckCountValue" className="form-control" defaultValue={this.game.numDecks.toString()} />
+          <input type="text" name="deckCountValue" className="form-control"
+                 defaultValue={this.game.numDecks.toString()} />
           <button className="btn btn-dark">Update</button>
         </div>
       </form>

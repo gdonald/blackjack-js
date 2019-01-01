@@ -1,12 +1,12 @@
-import React from 'react';
-import Game from './Game';
-import Hand, {CountMethod} from './Hand';
-import Card from './Card';
+import React from "react";
+import Card from "./Card";
+import Game from "./Game";
+import Hand, {CountMethod} from "./Hand";
 
 class DealerHand extends React.Component {
-  hideDownCard: boolean = true;
-  hand: Hand = null;
-  game: Game = null;
+  public hideDownCard: boolean = true;
+  public hand: Hand = null;
+  public game: Game = null;
 
   constructor(game: Game) {
     super(game);
@@ -14,10 +14,10 @@ class DealerHand extends React.Component {
     this.hand = new Hand(game);
   }
 
-  render() {
+  public render() {
     return (
-      <div className={`${this.game.isLinux() ? 'linux' : ''}${this.game.isWindoze() ? 'windoze' : ''}`}>
-        {this.displayHand().cards.map(function (card) {
+      <div className={`${Game.isLinux() ? "linux" : ""}${Game.isWindoze() ? "windoze" : ""}`}>
+        {this.displayHand().cards.map((card) => {
           return card.render();
         })}
         <div className="count black">⇒  {this.getValue(CountMethod.Soft)}</div>
@@ -25,44 +25,44 @@ class DealerHand extends React.Component {
     );
   }
 
-  displayHand(): Hand {
-    let h = new Hand(this.game);
-    for(let x = 0; x < this.hand.cards.length; x++) {
-      h.cards.push(x == 1 && this.hideDownCard
+  public displayHand(): Hand {
+    const h = new Hand(this.game);
+    for (let x = 0; x < this.hand.cards.length; x++) {
+      h.cards.push(x === 1 && this.hideDownCard
         ? new Card({value: 13, suitValue: 0})
         : this.hand.cards[x]);
     }
     return h;
   }
 
-  upCardIsAce(): boolean {
+  public upCardIsAce(): boolean {
     return this.hand.cards[0].isAce();
   }
 
-  isBusted(): boolean {
+  public isBusted(): boolean {
     return this.getValue(CountMethod.Soft) > 21;
   }
 
-  getValue(countMethod: CountMethod): number {
+  public getValue(countMethod: CountMethod): number {
     let v = 0;
     let total = 0;
 
     for (let x = 0; x < this.hand.cards.length; x++) {
-      if (x == 1 && this.hideDownCard) {
+      if (x === 1 && this.hideDownCard) {
         continue;
       }
 
-      let tmp_v = this.hand.cards[x].props.value + 1;
-      v = tmp_v > 9 ? 10 : tmp_v;
+      const tmpValue = this.hand.cards[x].props.value + 1;
+      v = tmpValue > 9 ? 10 : tmpValue;
 
-      if (countMethod == CountMethod.Soft && v == 1 && total < 11) {
+      if (countMethod === CountMethod.Soft && v === 1 && total < 11) {
         v = 11;
       }
 
       total += v;
     }
 
-    if (countMethod == CountMethod.Soft && total > 21) {
+    if (countMethod === CountMethod.Soft && total > 21) {
       return this.getValue(CountMethod.Hard);
     }
 

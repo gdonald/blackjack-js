@@ -1,23 +1,23 @@
-import React from 'react';
-import Game from '../Game';
+import React from "react";
+import Game from "../Game";
 
-interface PropsType {
-  game: Game
+interface IPropsType {
+  game: Game;
 }
 
-class MenuGame extends React.Component<PropsType, {}> {
-  game: Game = null;
+class MenuGame extends React.Component<IPropsType, {}> {
+  public game: Game = null;
 
   constructor(props) {
     super(props);
     this.game = props.game;
   }
 
-  render() {
-    const dblDisabled = this.game.currentPlayerHand().canDbl() ? '' : ' disabled';
-    const hitDisabled = this.game.currentPlayerHand().canHit() ? '' : ' disabled';
-    const standDisabled = this.game.currentPlayerHand().canStand() ? '' : ' disabled';
-    const splitDisabled = this.game.currentPlayerHand().canSplit() ? '' : ' disabled';
+  public render() {
+    const dblDisabled = this.game.currentPlayerHand().canDbl() ? "" : " disabled";
+    const hitDisabled = this.game.currentPlayerHand().canHit() ? "" : " disabled";
+    const standDisabled = this.game.currentPlayerHand().canStand() ? "" : " disabled";
+    const splitDisabled = this.game.currentPlayerHand().canSplit() ? "" : " disabled";
 
     return (
       <div className="menu-buttons">

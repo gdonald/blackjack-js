@@ -1,24 +1,33 @@
-import React from 'react';
-import Hand, { CountMethod, Status } from './Hand';
-import Game from './Game';
-import { MenuType } from './menus/Menu';
-import Card from './Card';
+import React from "react";
+import Card from "./Card";
+import Game from "./Game";
+import Hand, { CountMethod, Status } from "./Hand";
+import { MenuType } from "./menus/Menu";
 
 export const MAX_PLAYER_HANDS: number = 7;
 
-interface PropsType {
-}
+class PlayerHand extends React.Component<{}, {}> {
 
-class PlayerHand extends React.Component<PropsType, {}> {
+  public static totalPlayerHands: number = 0;
 
-  static totalPlayerHands: number = 0;
+  public static clone(playerHand: PlayerHand): PlayerHand {
+    const newPlayerHand = new PlayerHand(playerHand.game, playerHand.bet);
 
-  game: Game = null;
-  hand: Hand = null;
-  bet: number;
-  status: Status = Status.Unknown;
-  payed: boolean = false;
-  playerHandID: number = 0;
+    for (const card of playerHand.hand.cards) {
+      const newCard = new Card({value: card.props.value, suitValue: card.props.suitValue});
+      newPlayerHand.hand.cards.push(newCard);
+    }
+
+    return newPlayerHand;
+  }
+
+  public hand: Hand = null;
+  public bet: number;
+  public status: Status = Status.Unknown;
+  public payed: boolean = false;
+
+  private game: Game = null;
+  private readonly playerHandID: number;
 
   constructor(game: Game, bet: number) {
     super(game);
@@ -32,10 +41,12 @@ class PlayerHand extends React.Component<PropsType, {}> {
     this.hit = this.hit.bind(this);
   }
 
-  render() {
+  public render() {
+    const className = `${Game.isLinux() ? "linux" : ""}${Game.isWindoze() ? "windoze" : ""}`;
+
     return (
-      <div className={`${this.game.isLinux() ? 'linux' : ''}${this.game.isWindoze() ? 'windoze' : ''}`} key={`phs-${this.playerHandID}`}>
-        {this.hand.cards.map(function (card, key) {
+      <div className={className} key={`phs-${this.playerHandID}`}>
+        {this.hand.cards.map((card, key) => {
           return (
             <span key={`ph-${card.cardID}-${key}`}>
               {card.render()}
@@ -43,25 +54,17 @@ class PlayerHand extends React.Component<PropsType, {}> {
           );
         })}
         <div className="count black">
-          ⇒ {this.getValue(CountMethod.Soft)} &nbsp;{this.statusDisplay()}{this.betDisplay()}{this.currentHandDisplay()} &nbsp;{this.statusDisplayText()}
+        ⇒ {this.getValue(CountMethod.Soft)} &nbsp;
+          {this.statusDisplay()}
+          {this.betDisplay()}
+          {this.currentHandDisplay()} &nbsp;
+          {this.statusDisplayText()}
         </div>
       </div>
     );
   }
 
-  static clone(playerHand: PlayerHand): PlayerHand {
-    let newPlayerHand = new PlayerHand(playerHand.game, playerHand.bet);
-
-    for (let x = 0; x < playerHand.hand.cards.length; x++) {
-      const card = playerHand.hand.cards[x];
-      const newCard = new Card({value: card.props.value, suitValue: card.props.suitValue});
-      newPlayerHand.hand.cards.push(newCard);
-    }
-
-    return newPlayerHand;
-  }
-
-  hit(): void {
+  public hit(): void {
     if (!this.canHit()) {
       return;
     }
@@ -77,7 +80,7 @@ class PlayerHand extends React.Component<PropsType, {}> {
     this.game.forceUpdate();
   }
 
-  dbl(): void {
+  public dbl(): void {
     if (!this.canDbl()) {
       return;
     }
@@ -94,7 +97,7 @@ class PlayerHand extends React.Component<PropsType, {}> {
     this.game.forceUpdate();
   }
 
-  stand(): void {
+  public stand(): void {
     if (!this.canStand()) {
       return;
     }
@@ -112,7 +115,7 @@ class PlayerHand extends React.Component<PropsType, {}> {
     this.game.forceUpdate();
   }
 
-  process(): void {
+  public process(): void {
     if (this.game.moreHandsToPlay()) {
       this.game.playMoreHands();
       return;
@@ -123,7 +126,7 @@ class PlayerHand extends React.Component<PropsType, {}> {
     this.game.forceUpdate();
   }
 
-  canSplit(): boolean {
+  public canSplit(): boolean {
     if (this.hand.stood || this.game.playerHands.length >= MAX_PLAYER_HANDS) {
       return false;
     }
@@ -132,32 +135,36 @@ class PlayerHand extends React.Component<PropsType, {}> {
       return false;
     }
 
-    return this.hand.cards.length == 2 && this.hand.cards[0].props.value == this.hand.cards[1].props.value;
+    return this.hand.cards.length === 2 && this.hand.cards[0].props.value === this.hand.cards[1].props.value;
   }
 
-  canDbl(): boolean {
+  public canDbl(): boolean {
     if (this.game.money < this.game.allBets() + this.bet) {
       return false;
     }
 
-    return !(this.hand.stood || this.hand.cards.length != 2 || this.isBusted() || Game.isBlackjack(this.hand.cards));
+    return !(this.hand.stood || this.hand.cards.length !== 2 || this.isBusted() || Game.isBlackjack(this.hand.cards));
   }
 
-  canStand(): boolean {
+  public canStand(): boolean {
     return !(this.hand.stood || this.isBusted() || Game.isBlackjack(this.hand.cards));
   }
 
-  canHit(): boolean {
-    return !(this.hand.played || this.hand.stood || 21 == this.getValue(CountMethod.Hard) || Game.isBlackjack(this.hand.cards) || this.isBusted());
+  public canHit(): boolean {
+    return !(this.hand.played ||
+              this.hand.stood ||
+              21 === this.getValue(CountMethod.Hard) ||
+              Game.isBlackjack(this.hand.cards) ||
+              this.isBusted());
   }
 
-  isDone(): boolean {
+  public isDone(): boolean {
     if (this.hand.played
       || this.hand.stood
       || Game.isBlackjack(this.hand.cards)
       || this.isBusted()
-      || 21 == this.getValue(CountMethod.Soft)
-      || 21 == this.getValue(CountMethod.Hard)) {
+      || 21 === this.getValue(CountMethod.Soft)
+      || 21 === this.getValue(CountMethod.Hard)) {
       this.hand.played = true;
 
       if (!this.payed) {
@@ -174,70 +181,66 @@ class PlayerHand extends React.Component<PropsType, {}> {
     return false;
   }
 
-  isBusted(): boolean {
+  public isBusted(): boolean {
     return this.getValue(CountMethod.Soft) > 21;
   }
 
-  getValue(countMethod: CountMethod): number {
-    let v = 0;
+  public getValue(countMethod: CountMethod): number {
+    let v;
     let total = 0;
 
-    for (let x = 0; x < this.hand.cards.length; x++) {
-      let tmp_v = this.hand.cards[x].props.value + 1;
-      v = tmp_v > 9 ? 10 : tmp_v;
+    for (const card of this.hand.cards) {
+      const tmpValue = card.props.value + 1;
+      v = tmpValue > 9 ? 10 : tmpValue;
 
-      if (countMethod == CountMethod.Soft && v == 1 && total < 11) {
+      if (countMethod === CountMethod.Soft && v === 1 && total < 11) {
         v = 11;
       }
 
       total += v;
     }
 
-    if (countMethod == CountMethod.Soft && total > 21) {
+    if (countMethod === CountMethod.Soft && total > 21) {
       return this.getValue(CountMethod.Hard);
     }
 
     return total;
   }
 
-  statusDisplay(): string {
+  public statusDisplay(): string {
     switch (this.status) {
       case Status.Won:
-        return '+';
+        return "+";
       case Status.Lost:
-        return '-';
+        return "-";
     }
   }
 
-  statusDisplayText(): string {
-    if (this.status == Status.Lost) {
+  public statusDisplayText(): string {
+    if (this.status === Status.Lost) {
       if (this.isBusted()) {
-        return 'Busted!';
+        return "Busted!";
+      } else {
+        return "Lose!";
       }
-      else {
-        return 'Lose!';
-      }
-    }
-    else if (this.status == Status.Won) {
+    } else if (this.status === Status.Won) {
       if (Game.isBlackjack(this.hand.cards)) {
-        return 'Blackjack!';
+        return "Blackjack!";
+      } else {
+        return "Won!";
       }
-      else {
-        return 'Won!';
-      }
-    }
-    else if (this.status == Status.Push) {
-      return 'Push';
+    } else if (this.status === Status.Push) {
+      return "Push";
     }
   }
 
-  betDisplay(): string {
+  public betDisplay(): string {
     return Game.formattedMoney(this.bet);
   }
 
-  currentHandDisplay(): string {
-    if (!this.hand.played && this.game.currentPlayerHand() == this) {
-      return ' ⇐';
+  public currentHandDisplay(): string {
+    if (!this.hand.played && this.game.currentPlayerHand() === this) {
+      return " ⇐";
     }
   }
 }

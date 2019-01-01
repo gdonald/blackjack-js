@@ -1,19 +1,19 @@
-import React from 'react';
-import Game from '../Game';
+import React from "react";
+import Game from "../Game";
 
-interface PropsType {
-  game: Game
+interface IPropsType {
+  game: Game;
 }
 
-class MenuInsurance extends React.Component<PropsType, {}> {
-  game: Game = null;
+class MenuInsurance extends React.Component<IPropsType, {}> {
+  public game: Game = null;
 
   constructor(props) {
     super(props);
     this.game = props.game;
   }
 
-  render() {
+  public render() {
     return (
       <>
         <div className="word">Insurance?</div>
