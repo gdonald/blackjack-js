@@ -19,7 +19,7 @@
     "cryptiles": ">=4.1.2",
     "css-loader": "^1.0.1",
     "html-webpack-plugin": "3.2.0",
-    "jquery": "^3.3.1",
+    "jquery": "~> 3.4.0",
     "lint": "^1.1.2",
     "popper": "^1.0.1",
     "popper.js": "^1.14.7",
