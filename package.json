@@ -27,7 +27,8 @@
     "react-device-detect": "^1.6.1",
     "react-dom": "16.7.0",
     "style-loader": "^0.23.1",
-    "universal-cookie": "^3.0.7"
+    "universal-cookie": "^3.0.7",
+    "querystringify": ">=2.0.0"
   },
   "devDependencies": {
     "eslint": "^5.11.1",
