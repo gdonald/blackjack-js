@@ -21,6 +21,7 @@
     "html-webpack-plugin": "3.2.0",
     "jquery": "~> 3.4.0",
     "lint": "^1.1.2",
+    "lodash": "^4.17.13",
     "popper": "^1.0.1",
     "popper.js": "^1.15.0",
     "querystringify": "^2.1.1",
