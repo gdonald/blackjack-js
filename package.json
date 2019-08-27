@@ -21,12 +21,12 @@
     "html-webpack-plugin": "3.2.0",
     "jquery": "~> 3.4.0",
     "lint": "^1.1.2",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.15",
     "popper": "^1.0.1",
     "popper.js": "^1.15.0",
     "querystringify": "^2.1.1",
     "react": "16.7.0",
-    "react-device-detect": "^1.6.2",
+    "react-device-detect": "^1.7.5",
     "react-dom": "16.7.0",
     "style-loader": "^0.23.1",
     "universal-cookie": "^3.1.0"
@@ -34,17 +34,17 @@
   "devDependencies": {
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^7.0.1",
-    "eslint-plugin-promise": "^4.1.1",
-    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "ts-loader": "^5.4.5",
-    "tslint": "^5.17.0",
+    "tslint": "^5.19.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^3.6.0",
-    "typescript": "^3.5.1",
-    "webpack": "^4.33.0",
-    "webpack-cli": "^3.3.3",
-    "webpack-dev-server": "^3.7.1"
+    "typescript": "^3.5.3",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0"
   }
 }
