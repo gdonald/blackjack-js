@@ -20,4 +20,4 @@ npm start
 
 #### Demo
 
-[http://blackjack.gregdonald.com/](http://blackjack.gregdonald.com/)
+[https://games.gregdonald.com/blackjack/](https://games.gregdonald.com/blackjack/)
