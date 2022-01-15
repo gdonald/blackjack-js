@@ -14,7 +14,7 @@ module.exports = {
     path: __dirname + '/public',
     filename: 'build/[name].[contenthash].js'
   },
-  devtool: false,
+  devtool: 'source-map',
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
   },
