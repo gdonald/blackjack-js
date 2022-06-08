@@ -20,7 +20,7 @@ npm start
 
 #### Demo
 
-[https://games.gregdonald.com/blackjack/](https://games.gregdonald.com/blackjack/)
+[https://gregdonald.com/games/blackjack/](https://gregdonald.com/games/blackjack/)
 
 ## License
 
