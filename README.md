@@ -2,6 +2,8 @@
 
 Blackjack in ReactJS (Typescript)
 
+![Blackjack](https://raw.githubusercontent.com/gdonald/blackjack-js/main/ss.png "Blackjack")
+
 #### Install
 
 ``
@@ -18,9 +20,9 @@ npm start
 
 [http://localhost:8080/](http://localhost:8080/)
 
-#### Demo
+#### Play Online / Demo
 
-[https://gregdonald.com/games/blackjack/](https://gregdonald.com/games/blackjack/)
+[https://gdonald.github.io/blackjack-js/](https://gdonald.github.io/blackjack-js/)
 
 ## License
 
