@@ -14,7 +14,7 @@ npm install
 npm start
 ``
 
-#### Play
+#### Play Locally
 
 [http://localhost:8080/](http://localhost:8080/)
 
