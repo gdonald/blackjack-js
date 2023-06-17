@@ -252,7 +252,7 @@ class Game extends React.Component {
 
     playerHand.bet /= 2;
     playerHand.hand.played = true;
-    playerHand.payed = true;
+    playerHand.paid = true;
     playerHand.status = Status.Lost;
 
     this.money -= playerHand.bet;
@@ -290,11 +290,11 @@ class Game extends React.Component {
     const dhb = this.dealerHand.isBusted();
 
     for (const playerHand of this.playerHands) {
-      if (playerHand.payed) {
+      if (playerHand.paid) {
         continue;
       }
 
-      playerHand.payed = true;
+      playerHand.paid = true;
 
       const phv = playerHand.getValue(CountMethod.Soft);
 

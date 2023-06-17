@@ -24,7 +24,7 @@ class PlayerHand extends React.Component<{}, {}> {
   public hand: Hand = null;
   public bet: number;
   public status: Status = Status.Unknown;
-  public payed: boolean = false;
+  public paid: boolean = false;
 
   private game: Game = null;
   private readonly playerHandID: number;
@@ -167,9 +167,9 @@ class PlayerHand extends React.Component<{}, {}> {
       || 21 === this.getValue(CountMethod.Hard)) {
       this.hand.played = true;
 
-      if (!this.payed) {
+      if (!this.paid) {
         if (this.isBusted()) {
-          this.payed = true;
+          this.paid = true;
           this.status = Status.Lost;
           this.game.money -= this.bet;
         }
