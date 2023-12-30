@@ -46,8 +46,8 @@ class Game extends React.Component {
   //public cookies: Cookies = null
   public numDecks: number = 8
   public shoeType: number = ShoeType.Regular
-  public shoe: Shoe = null
-  public dealerHand: DealerHand = null
+  public shoe: Shoe //= null
+  public dealerHand: DealerHand // = null
   public playerHands: PlayerHand[] = []
   public currentPlayerHandIndex: number = 0
   public currentBet: number = MIN_BET

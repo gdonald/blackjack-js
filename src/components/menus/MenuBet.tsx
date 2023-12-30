@@ -1,31 +1,36 @@
-import React from "react";
-import Game from "../Game";
+import React from 'react'
+import Game from '../Game'
 
 interface IPropsType {
-  game: Game;
+  game: Game
 }
 
 class MenuBet extends React.Component<IPropsType, {}> {
-  public game: Game = null;
+  public game: Game = null
 
   constructor(props) {
-    super(props);
-    this.game = props.game;
+    super(props)
+    this.game = props.game
   }
 
   public render() {
     return (
       <form onSubmit={this.game.updateBet}>
-        <div className="input-group get-bet">
-          <div className="input-group-prepend">
-            <span className="input-group-text">$</span>
+        <div className='input-group get-bet'>
+          <div className='input-group-prepend'>
+            <span className='input-group-text'>$</span>
           </div>
-          <input type="text" name="betValue" className="form-control" defaultValue={this.game.formattedBet()} />
-          <button className="btn btn-dark">Update</button>
+          <input
+            type='text'
+            name='betValue'
+            className='form-control'
+            defaultValue={this.game.formattedBet()}
+          />
+          <button className='btn btn-dark'>Update</button>
         </div>
       </form>
-    );
+    )
   }
 }
 
-export default MenuBet;
+export default MenuBet

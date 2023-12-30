@@ -1,23 +1,30 @@
-import Card from "./Card";
-import Game from "./Game";
+import Card from '../components/Card'
+import Game from '../components/Game'
 
-export enum Status { Unknown, Won, Lost, Push }
-export enum CountMethod { Soft, Hard }
+export enum Status {
+  Unknown,
+  Won,
+  Lost,
+  Push,
+}
+export enum CountMethod {
+  Soft,
+  Hard,
+}
 
 class Hand {
-
-  public game: Game = null;
-  public cards: Card[] = [];
-  public stood: boolean = false;
-  public played: boolean = false;
+  public game: Game //= null;
+  public cards: Card[] = []
+  public stood: boolean = false
+  public played: boolean = false
 
   constructor(game: Game) {
-    this.game = game;
+    this.game = game
   }
 
   public dealCard(): void {
-    this.cards.push(this.game.shoe.getNextCard());
+    this.cards.push(this.game.shoe.getNextCard())
   }
 }
 
-export default Hand;
+export default Hand
