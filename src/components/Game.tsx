@@ -1,5 +1,5 @@
 import React from 'react'
-// import Cookies from "universal-cookie";
+import { Cookies } from 'react-cookie'
 import Card from './Card'
 import DealerHand from './DealerHand'
 import { CountMethod, Status } from '../lib/Hand'
@@ -18,13 +18,13 @@ const START_MONEY: number = 10000
 class Game extends React.Component {
   public static isLinux(): boolean {
     return (
-      navigator.appVersion.indexOf('Linux') > -1 ||
-      navigator.appVersion.indexOf('X11') > -1
+      navigator.userAgent.indexOf('Linux') > -1 ||
+      navigator.userAgent.indexOf('X11') > -1
     )
   }
 
   public static isWindoze(): boolean {
-    return navigator.appVersion.indexOf('Windows') > -1
+    return navigator.userAgent.indexOf('Windows') > -1
   }
 
   public static isBlackjack(cards: Card[]): boolean {
@@ -45,7 +45,7 @@ class Game extends React.Component {
     })
   }
 
-  //public cookies: Cookies = null
+  public cookies: Cookies
   public numDecks: number = 8
   public shoeType: number = ShoeType.Regular
   public shoe: Shoe
@@ -61,7 +61,7 @@ class Game extends React.Component {
   constructor(props: IPropsType) {
     super(props)
 
-    //this.cookies = new Cookies()
+    this.cookies = new Cookies()
     this.loadGame()
 
     this.shoe = new Shoe(this.numDecks)
@@ -468,20 +468,20 @@ class Game extends React.Component {
 
   public saveGame(): void {
     const gameState = `${this.money}|${this.currentBet}|${this.numDecks}|${this.shoeType}`
-    //this.cookies.set('gameState', gameState, { path: '/' })
+    this.cookies.set('gameState', gameState, { path: '/', sameSite: 'strict' })
   }
 
   public loadGame(): void {
-    //const gameState = this.cookies.get('gameState')
-    // if (gameState === undefined) {
-    //   return
-    // }
+    const gameState = this.cookies.get('gameState')
+    if (gameState === undefined) {
+      return
+    }
 
-    //const parts = gameState.toString().split('|')
-    // this.money = parseInt(parts[0], 10)
-    // this.currentBet = parseInt(parts[1], 10)
-    // this.numDecks = parseInt(parts[2], 10)
-    // this.shoeType = parseInt(parts[3], 10)
+    const parts = gameState.toString().split('|')
+    this.money = parseInt(parts[0], 10)
+    this.currentBet = parseInt(parts[1], 10)
+    this.numDecks = parseInt(parts[2], 10)
+    this.shoeType = parseInt(parts[3], 10)
 
     this.normalizeCurrentBet()
     this.normalizeDeckCount()
