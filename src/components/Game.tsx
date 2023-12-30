@@ -7,6 +7,8 @@ import Menu, { MenuType } from './menus/Menu'
 import PlayerHand from './PlayerHand'
 import Shoe, { ShoeType } from '../lib/Shoe'
 
+interface IPropsType {}
+
 const MIN_BET: number = 500
 const MAX_BET: number = 10000000
 const MIN_NUM_DECKS: number = 1
@@ -46,23 +48,24 @@ class Game extends React.Component {
   //public cookies: Cookies = null
   public numDecks: number = 8
   public shoeType: number = ShoeType.Regular
-  public shoe: Shoe //= null
-  public dealerHand: DealerHand // = null
+  public shoe: Shoe
+  public dealerHand: DealerHand
   public playerHands: PlayerHand[] = []
   public currentPlayerHandIndex: number = 0
   public currentBet: number = MIN_BET
   public money: number = START_MONEY
-  public menu: Menu = null
+  public menu: Menu
   public currentMenu: number = MenuType.MenuHand
   public mounted: boolean = false
 
-  constructor(props) {
+  constructor(props: IPropsType) {
     super(props)
 
     //this.cookies = new Cookies()
     this.loadGame()
 
     this.shoe = new Shoe(this.numDecks)
+    this.dealerHand = new DealerHand(this)
     this.dealNewHand()
     this.menu = new Menu({ game: this })
 
@@ -359,10 +362,15 @@ class Game extends React.Component {
     this.forceUpdate()
   }
 
-  public updateBet(event): void {
+  public updateBet(event: any): void {
     event.preventDefault()
     const data = new FormData(event.target)
-    this.currentBet = parseInt(data.get('betValue').toString(), 10) * 100
+    const betValue = data.get('betValue')
+    if (betValue === null) {
+      return
+    }
+
+    this.currentBet = parseInt(betValue.toString(), 10) * 100
     this.normalizeCurrentBet()
 
     this.dealNewHand()
@@ -383,10 +391,15 @@ class Game extends React.Component {
     }
   }
 
-  public updateDeckCount(event): void {
+  public updateDeckCount(event: any): void {
     event.preventDefault()
     const data = new FormData(event.target)
-    this.numDecks = parseInt(data.get('deckCountValue').toString(), 10)
+
+    const deckCountValue = data.get('deckCountValue')
+    if (deckCountValue === null) {
+      return
+    }
+    this.numDecks = parseInt(deckCountValue.toString(), 10)
     this.normalizeDeckCount()
 
     this.currentMenu = MenuType.MenuOptions

@@ -6,14 +6,18 @@ interface IPropsType {
 }
 
 class MenuBet extends React.Component<IPropsType, {}> {
-  public game: Game = null
+  public game: Game
 
-  constructor(props) {
+  constructor(props: IPropsType) {
     super(props)
     this.game = props.game
   }
 
   public render() {
+    if (this.game === null) {
+      return null
+    }
+
     return (
       <form onSubmit={this.game.updateBet}>
         <div className='input-group get-bet'>

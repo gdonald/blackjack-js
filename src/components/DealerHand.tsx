@@ -5,8 +5,8 @@ import Hand, { CountMethod } from '../lib/Hand'
 
 class DealerHand extends React.Component {
   public hideDownCard: boolean = true
-  public hand: Hand //= null
-  public game: Game //= null
+  public hand: Hand
+  public game: Game
 
   constructor(game: Game) {
     super(game)

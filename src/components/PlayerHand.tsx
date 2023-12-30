@@ -23,12 +23,12 @@ class PlayerHand extends React.Component<{}, {}> {
     return newPlayerHand
   }
 
-  public hand: Hand = null
+  public hand: Hand
   public bet: number
   public status: Status = Status.Unknown
   public paid: boolean = false
 
-  private game: Game = null
+  private game: Game
   private readonly playerHandID: number
 
   constructor(game: Game, bet: number) {
@@ -230,6 +230,8 @@ class PlayerHand extends React.Component<{}, {}> {
       case Status.Lost:
         return '-'
     }
+
+    return ''
   }
 
   public statusDisplayText(): string {
@@ -248,6 +250,8 @@ class PlayerHand extends React.Component<{}, {}> {
     } else if (this.status === Status.Push) {
       return 'Push'
     }
+
+    return ''
   }
 
   public betDisplay(): string {
@@ -258,6 +262,8 @@ class PlayerHand extends React.Component<{}, {}> {
     if (!this.hand.played && this.game.currentPlayerHand() === this) {
       return ' ⇐'
     }
+
+    return ''
   }
 }
 

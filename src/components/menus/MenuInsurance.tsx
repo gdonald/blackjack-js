@@ -6,14 +6,18 @@ interface IPropsType {
 }
 
 class MenuInsurance extends React.Component<IPropsType, {}> {
-  public game: Game = null
+  public game: Game
 
-  constructor(props) {
+  constructor(props: IPropsType) {
     super(props)
     this.game = props.game
   }
 
   public render() {
+    if (this.game === null) {
+      return null
+    }
+
     return (
       <>
         <div className='word'>Insurance?</div>

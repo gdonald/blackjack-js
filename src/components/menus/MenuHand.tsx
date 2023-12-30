@@ -6,14 +6,18 @@ interface IPropsType {
 }
 
 class MenuGame extends React.Component<IPropsType, {}> {
-  public game: Game = null
+  public game: Game
 
-  constructor(props) {
+  constructor(props: IPropsType) {
     super(props)
     this.game = props.game
   }
 
   public render() {
+    if (this.game === null) {
+      return null
+    }
+
     const dblDisabled = this.game.currentPlayerHand().canDbl()
       ? ''
       : ' disabled'

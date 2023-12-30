@@ -24,10 +24,9 @@ class Card extends React.Component<IPropsType, {}> {
   ]
 
   public static cardID: number = 0
-
   public readonly cardID: number = 0
 
-  constructor(props) {
+  constructor(props: IPropsType) {
     super(props)
     this.cardID = Card.cardID++
   }

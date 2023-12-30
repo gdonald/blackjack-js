@@ -13,7 +13,7 @@ export enum CountMethod {
 }
 
 class Hand {
-  public game: Game //= null;
+  public game: Game
   public cards: Card[] = []
   public stood: boolean = false
   public played: boolean = false
@@ -23,7 +23,16 @@ class Hand {
   }
 
   public dealCard(): void {
-    this.cards.push(this.game.shoe.getNextCard())
+    if (this.game === null) {
+      return
+    }
+
+    const card = this.game.shoe.getNextCard()
+    if (card === undefined) {
+      return
+    }
+
+    this.cards.push(card)
   }
 }
 
