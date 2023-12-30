@@ -54,7 +54,7 @@ body {
 }
 
 .menu-buttons {
-  margin: 12px 0 0 4px;
+  margin: 12px 0 20px 4px;
 }
 
 .menu-buttons div {
@@ -65,4 +65,19 @@ body {
 .get-bet, .get-deck-count {
   margin: 8px 0 0 4px !important;
   width: 200px !important;
+}
+
+.fork-me {
+  margin: 0 0 20px 4px;
+
+  a {
+    color: #454545;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      color: #000;
+      text-decoration: underline;
+    }
+  }
 }
