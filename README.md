@@ -1,30 +1,46 @@
-# React + TypeScript + Vite
+# blackjack-js
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Blackjack in ReactJS (Typescript)
 
-Currently, two official plugins are available:
+![Blackjack](https://raw.githubusercontent.com/gdonald/blackjack-js/main/ss.png "Blackjack")
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### Install
 
-## Expanding the ESLint configuration
+    npm install
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+#### Run Locally
 
-- Configure the top-level `parserOptions` property like this:
+    npm run dev
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+#### Run on LAN
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+    npm run dev -- --host
+
+#### Play Locally
+
+[http://localhost:5173/](http://localhost:5173/)
+
+#### Play Online
+
+[https://gdonald.github.io/blackjack-js/](https://gdonald.github.io/blackjack-js/)
+
+## License
+
+[![GitHub](https://img.shields.io/github/license/gdonald/blackjack-js?color=aa0000)](https://github.com/gdonald/blackjack-js/blob/master/LICENSE)
+
+## Alternative Implementations:
+
+I've written Blackjack in several other languages:
+
+- [Ruby](https://github.com/gdonald/console-blackjack-ruby)
+- [Rust](https://github.com/gdonald/console-blackjack-rust)
+- [Raku](https://github.com/gdonald/Console-Blackjack)
+- [Perl](https://github.com/gdonald/console-blackjack-perl)
+- [C](https://github.com/gdonald/blackjack-c)
+- [C++](https://github.com/gdonald/blackjack-cpp)
+- [Crystal](https://github.com/gdonald/blackjack-cr)
+- [Go](https://github.com/gdonald/blackjack-go)
+- [Elixir](https://github.com/gdonald/blackjack-ex)
+- [Python](https://github.com/gdonald/blackjack-py)
+- [C with SDL](https://github.com/gdonald/blackjack-c-sdl)
+- [Emacs Lisp](https://github.com/gdonald/blackjack-el)
