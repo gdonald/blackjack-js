@@ -34,6 +34,7 @@ I've written Blackjack in several other languages:
 
 - [Ruby](https://github.com/gdonald/console-blackjack-ruby)
 - [Rust](https://github.com/gdonald/console-blackjack-rust)
+- [Zig](https://github.com/gdonald/blackjack-zig)
 - [Raku](https://github.com/gdonald/Console-Blackjack)
 - [Perl](https://github.com/gdonald/console-blackjack-perl)
 - [C](https://github.com/gdonald/blackjack-c)
